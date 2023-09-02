@@ -14,8 +14,6 @@ import "./style.css"
         <main>
             <div class="content">
                 <slot />
-            </div>
-            <div class="menu_container">
                 <Menu />
             </div>
         </main>
@@ -26,7 +24,7 @@ import "./style.css"
     </footer>
 </body>
 
-<style>
+<style scoped>
     footer {
         background-color: black;
         color: white;
@@ -52,18 +50,17 @@ import "./style.css"
         background-position: center;
         display: flex;
         justify-content: center;
-        flex-direction: column;
         align-items: center;
         padding: 20px;
         width: 600px;
         height: 750px;
     }
-    .menu_container {
-         display: flex;
-         justify-content: center;
-         padding: 20px;
-         border-radius: 12px;
-         box-shadow: 0 2px 3px rgba(0, 0, 0, 0.382);
+    .content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 1px 3px black;
+        min-height: 90%;
     }
     .content {
         height: 300px;
