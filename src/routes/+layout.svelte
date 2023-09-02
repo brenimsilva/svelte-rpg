@@ -7,7 +7,44 @@ import "./style.css"
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <a href="/">Home</a>
-    <Menu />
-    <slot />
+    <nav>
+        <a href="/">Home</a>
+    </nav>
+    <main>
+        <div class="content">
+            <slot />
+        </div>
+        <div class="menu_container">
+            <Menu />
+        </div>
+    </main>
 </body>
+
+<style>
+    main {
+        background-image: url("../assets/texture.png");
+        background-color: #c6baa1;
+        background-repeat: no-repeat;
+        background-size: auto;
+        background-position: center;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+    .menu_container {
+         display: flex;
+         justify-content: center;
+         padding: 20px;
+         border-radius: 12px;
+         box-shadow: 0 2px 3px rgba(0, 0, 0, 0.382);
+    }
+    .content {
+        height: 300px;
+        max-height: 300px;
+        padding: 20px;
+        width: 100vw;
+        overflow: hidden;
+    }
+</style>

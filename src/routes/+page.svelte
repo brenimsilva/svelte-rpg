@@ -10,6 +10,5 @@
 <style>
     .container {
         display: flex;
-
     }
 </style>
