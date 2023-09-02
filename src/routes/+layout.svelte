@@ -10,17 +10,40 @@ import "./style.css"
     <nav>
         <a href="/">Home</a>
     </nav>
-    <main>
-        <div class="content">
-            <slot />
-        </div>
-        <div class="menu_container">
-            <Menu />
-        </div>
-    </main>
+    <div id="app">
+        <main>
+            <div class="content">
+                <slot />
+            </div>
+            <div class="menu_container">
+                <Menu />
+            </div>
+        </main>
+    </div>
+    <footer>
+        <p>Author:</p>
+       <p>Breno Almeida</p>
+    </footer>
 </body>
 
 <style>
+    footer {
+        background-color: black;
+        color: white;
+        text-align: center;
+        padding: 5px;
+        font-size: small;
+    }
+    #app {
+        display: flex;
+        justify-content: center;
+        /* background-image: url("../assets/yrkGs9.png"); */
+        /* background-repeat: no-repeat; */
+        /* background-size: cover; */
+        /* background-position: center; */
+        background-color: #333;
+        padding: 20px;
+    }
     main {
         background-image: url("../assets/texture.png");
         background-color: #c6baa1;
@@ -32,6 +55,8 @@ import "./style.css"
         flex-direction: column;
         align-items: center;
         padding: 20px;
+        width: 600px;
+        height: 750px;
     }
     .menu_container {
          display: flex;

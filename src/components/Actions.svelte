@@ -33,20 +33,30 @@
             </div>
         </div>
     {/if}
-    <h1 class="title">Routes</h1>
-    <div>
-        <a href="/battle" class="action">Battle</a>
-        <a href="/save" class="action">Save</a>
-        <a href="/training" class="action">Training</a>
-    </div>
-    <div>
-        <a href="/stats" class="action">Stats</a>
-        <a href="/equipment" class="action">Equipments</a>
-        <a href="/shop" class="action">Shop</a>
+    <div class="routes_menu">
+        <h1 class="title">Routes</h1>
+        <div class="">
+            <a href="/battle" class="action">Battle</a>
+            <a href="/save" class="action">Save</a>
+            <a href="/training" class="action">Training</a>
+        </div>
+        <div>
+            <a href="/stats" class="action">Stats</a>
+            <a href="/equipment" class="action">Equipments</a>
+            <a href="/shop" class="action">Shop</a>
+        </div>
     </div>
 </div>
 
 <style>
+    .routes_menu {
+        height: 150px;
+        padding: 10px;
+        width: 100%;
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr;
+        gap: 10px;
+    }
     #slash_action {
         background-color: rgba(58, 64, 58, 0.50);
         border-top-left-radius: 15px;
@@ -107,6 +117,7 @@
         gap: 5px;
         box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.517);
         padding: 5px;
+        border-radius: 12px;
     }
     .container {
         display: flex;
@@ -114,6 +125,8 @@
         justify-content: space-around;
         padding: 20px;
         gap: 10px;
+        width: 400px;
+        height: 400px;
     }
     .action {
         border: 1px solid black;

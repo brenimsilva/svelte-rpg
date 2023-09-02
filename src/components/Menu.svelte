@@ -7,7 +7,4 @@
 </div>
 
 <style>
-    .container {
-        display: flex;
-    }
 </style>
