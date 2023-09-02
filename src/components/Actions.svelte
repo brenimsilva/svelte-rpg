@@ -12,7 +12,7 @@
     let slashChance = 80;
 </script>
 
-<div class="container">
+<main class="container">
     {#if isFighting}
         <div class="fight_menu">
             <div class="fight_action" id="slash_action">
@@ -33,7 +33,7 @@
             </div>
         </div>
     {/if}
-</div>
+</main>
 
 <style>
     #slash_action {
@@ -104,8 +104,8 @@
         justify-content: space-around;
         padding: 20px;
         gap: 10px;
-        width: 400px;
-        height: 400px;
+        width: 100%;
+        height: 200px;
     }
     .action {
         border: 1px solid black;

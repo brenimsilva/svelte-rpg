@@ -52,19 +52,16 @@ import "./style.css"
         justify-content: center;
         align-items: center;
         padding: 20px;
-        width: 600px;
+        width: 500px;
         height: 750px;
     }
     .content {
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: flex-end;
         box-shadow: 0 1px 3px black;
-        min-height: 90%;
-    }
-    .content {
-        height: 300px;
-        max-height: 300px;
+        min-height: 700px;
+        max-height: 700px;
         padding: 20px;
         width: 100vw;
         overflow: hidden;
