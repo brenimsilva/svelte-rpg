@@ -39,7 +39,7 @@ npm run dev -- --open
 - Defense **(DEF)**
 - Evasion **(EVS)** 
 - Crit Chance **(CRTC)**
-- Crit Damange **(CRTD)**
+- Crit Damage **(CRTD)**
 ### Attributes
 - Strength **(STR)**
 - Vitality **(VIT)**
