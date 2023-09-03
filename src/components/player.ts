@@ -1,5 +1,7 @@
 interface IPlayer {
-    sp: number;
+    sp: number; // Stat points 
+    pp: number; // Perk points
+    ap: number; // Ascension points
     stats: IStats;
     attributes: IAttributes;
     sprite: ISprite;
@@ -12,16 +14,18 @@ interface ISprite {
 }
 interface IStats {
     hp: number;
-    mp: number;
     atk: number;
     def: number;
+    evs: number; // Evasion
+    crtc: number; // Crit Chance %
+    crtd: number // Crit Damage %
 }
 
 interface IAttributes {
+    str: number;
+    vit: number;
     dex: number;
     agi: number;
-    vit: number;
-    int: number;
 }
 
 export type {IPlayer, IStats, IAttributes, ISprite};

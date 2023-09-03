@@ -1,11 +1,10 @@
 <script lang="ts">
 	import BattleLog from "../../components/BattleLog.svelte";
 import Stats from "../../components/Stats.svelte";
-	import type { IPlayer } from "../../components/player";
 	import Player from "../../components/player";
 
-    let player = new Player({atk: 1, def: 0, hp: 10, mp: 0}, {agi: 0, dex: 0, int: 0, vit: 0}, 1, {height: 1, url: "assets/char1nobg.png", width: 1});
-    let monster = new Player({atk: 1, def: 0, hp: 10, mp: 0}, {agi: 0, dex: 0, int: 0, vit: 0}, 1, {height: 1, url: "assets/rat01.png", width: 1});
+    let player = new Player({atk: 1, def: 0, hp: 10, evs: 0, crtc: 0, crtd: 0}, {agi: 0, dex: 0, vit: 0, str: 0}, 1, {height: 1, url: "assets/char1nobg.png", width: 1});
+    let monster = new Player({atk: 1, def: 0, hp: 10, evs: 0, crtc: 0, crtd: 0}, {agi: 0, dex: 0, vit: 0, str: 0}, 1, {height: 1, url: "assets/rat01.png", width: 1});
 </script>
 
 <div class="container">

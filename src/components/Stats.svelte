@@ -11,11 +11,15 @@
     <div class="stats_container">
         <div class="stats">
             <p><span>HP: </span>{player.stats.hp}</p>
-            <p><span>MP: </span>{player.stats.mp}</p>
+            <p><span>ATK: </span>{player.stats.atk}</p>
         </div>
         <div class="stats">
-            <p><span>ATK: </span>{player.stats.atk}</p>
+            <p><span>EVS: </span>{player.stats.evs}</p>
             <p><span>DEF: </span>{player.stats.def}</p>
+        </div>
+        <div class="stats">
+            <p><span>CRTC: </span>{player.stats.crtc}</p>
+            <p><span>CRTD: </span>{player.stats.crtd}</p>
         </div>
     </div>
     <div class="image_container {isMonster ? '' : 'image_reverse'}">
