@@ -19,7 +19,9 @@
         <main>
             <div class="content">
                 <div class="container">
-                    <slot />
+                    <div id="scene">
+                        <slot />
+                    </div>
                     <Routes />
                     <div class="fight_container">
                     {#if isFighting}
@@ -37,10 +39,18 @@
 </body>
 
 <style scoped>
+    #scene {
+        /* display: flex; */
+        height: 310px;
+        box-sizing: border-box;
+        padding: 10px;
+        width: 100%;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.522);
+        /* background-color: #c3a66769; */
+    }
     nav {
         background-color: black;
         padding: 5px;
-
     }
     nav > a {
         text-decoration: none;
@@ -93,7 +103,7 @@
         padding: 20px;
     }
     main {
-        background-image: url("../assets/texture.png");
+        background-image: url("assets/texture.png");
         background-color: #c6baa1;
         background-repeat: no-repeat;
         background-size: auto;

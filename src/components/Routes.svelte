@@ -16,7 +16,6 @@
         padding: 5px;
         gap: 5px;
         box-shadow: 0 2px 3px rgba(0, 0, 0, 0.486);
-        /* border-radius: 24px; */
     }
     .action {
         border: 1px solid black;
@@ -31,7 +30,7 @@
         align-items: center;
     }
     .action:hover {
-        background-color: rgba(128, 128, 128, 0.63);
+        background-color: #c3a66797;
         color: white;
     }
     .action:active {

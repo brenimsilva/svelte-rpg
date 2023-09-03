@@ -2,6 +2,8 @@
 	import Scene from "../components/Scene.svelte";
 
 </script>
-<Scene />
+<main class="container">
+	<Scene />
+</main>
 <style scoped>
 </style>

@@ -2,8 +2,14 @@ interface IPlayer {
     sp: number;
     stats: IStats;
     attributes: IAttributes;
+    sprite: ISprite;
 }
 
+interface ISprite {
+    url: string;
+    width: number;
+    height: number;
+}
 interface IStats {
     hp: number;
     mp: number;
@@ -18,16 +24,18 @@ interface IAttributes {
     int: number;
 }
 
-export type {IPlayer, IStats, IAttributes};
+export type {IPlayer, IStats, IAttributes, ISprite};
 
 export default class Player {
-    private stats: IStats;
-    private attributes: IAttributes;
-    private sp: number;
-    constructor(){
-        this.stats = {atk: 1, def: 0, hp: 10, mp: 0}
-        this.attributes = {agi: 0, dex: 0, int: 0, vit: 0}
-        this.sp = 1;
+    stats: IStats;
+    attributes: IAttributes;
+    sp: number;
+    sprite: ISprite;
+    constructor(stats: IStats, attributes: IAttributes, sp: number, sprite: ISprite){
+        this.stats = stats;
+        this.attributes = attributes;
+        this.sp = sp;
+        this.sprite = sprite;
     }
 
 

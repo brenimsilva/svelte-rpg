@@ -1,17 +1,25 @@
 <script lang="ts">
+	import type Player from "./player";
 	import  type { IPlayer } from "./player";
 
-    export let player: IPlayer;
+    export let player: Player;
+    export let charUrl = "../assets/char1bg-removebg.png";
+    export let isMonster: boolean;
 </script>
 
-<div class="container">
-    <div>
-        <p><span>HP: </span>{player.stats.hp}</p>
-        <p><span>MP: </span>{player.stats.mp}</p>
+<div class="container {isMonster ? 'reverse' : ''}">
+    <div class="stats_container">
+        <div class="stats">
+            <p><span>HP: </span>{player.stats.hp}</p>
+            <p><span>MP: </span>{player.stats.mp}</p>
+        </div>
+        <div class="stats">
+            <p><span>ATK: </span>{player.stats.atk}</p>
+            <p><span>DEF: </span>{player.stats.def}</p>
+        </div>
     </div>
-    <div>
-        <p><span>ATK: </span>{player.stats.atk}</p>
-        <p><span>DEF: </span>{player.stats.def}</p>
+    <div class="image_container {isMonster ? '' : 'image_reverse'}">
+        <img src={player.sprite.url} width="60px"  class="{isMonster ? '' : 'sprite_reverse'}"/> 
     </div>
 </div>
 
@@ -20,7 +28,38 @@
     .container {
         display: flex;
         gap: 10px;
-        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.364);
+        box-sizing: border-box;
         padding: 10px;
+        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.364);
+        background-color: rgba(222, 220, 97, 0.339);
+        border: 2px solid white;
+        border-radius: 12px;
+        
     }
+    .reverse {
+        flex-direction: row-reverse;
+    }
+    .image_container {
+       width: 100%;
+
+    }
+    .image_reverse {
+        text-align: end;
+    }
+    .stats_container {
+        display: flex;
+        align-items: start;
+    }
+
+    .stats > p {
+        padding: 0;
+        margin: 0;
+    }
+    .sprite_reverse {
+        transform: scaleX(-1);
+    }
+    img {
+        margin-right: 20px;
+    }
+
 </style>
