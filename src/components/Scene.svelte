@@ -8,7 +8,7 @@
 
 <style scoped>
 main {
-    height: 350px;
+    height: 310px;
     width: 100%;
     background-color: #3333338e;
 }

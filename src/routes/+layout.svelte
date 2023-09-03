@@ -1,6 +1,11 @@
 <script>
+	import Actions from "../components/Actions.svelte";
 	import Menu from "../components/Menu.svelte";
-import "./style.css"
+	import Routes from "../components/Routes.svelte";
+	import Scene from "../components/Scene.svelte";
+    import "./style.css"
+
+    let isFighting  = true;
 </script>
 <head>
     <title>RPG Game</title>
@@ -13,8 +18,15 @@ import "./style.css"
     <div id="app">
         <main>
             <div class="content">
-                <slot />
-                <Menu />
+                <div class="container">
+                    <slot />
+                    <Routes />
+                    <div class="fight_container">
+                    {#if isFighting}
+                        <Actions />
+                    {/if}
+                    </div>
+                </div>
             </div>
         </main>
     </div>
@@ -25,6 +37,48 @@ import "./style.css"
 </body>
 
 <style scoped>
+    nav {
+        background-color: black;
+        padding: 5px;
+
+    }
+    nav > a {
+        text-decoration: none;
+        color: blue;
+    }
+    nav >a:visited {
+        text-decoration: none;
+        color: blue;
+    }
+    nav > a:hover {
+        color: rgba(0, 0, 255, 0.671);
+    }
+    nav > a:hover::after {
+        position:absolute;
+        top: 32px;
+        left: 20px;
+        width: 40px;
+        content: "";
+        padding: 1px;
+        background-color: red;
+        transition: all 0.2s;
+    }
+    .container {
+        width: 100%;
+        display: flex; 
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .fight_container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        padding: 20px;
+        gap: 10px;
+        width: 100%;
+        height: 200px;
+    }
     footer {
         background-color: black;
         color: white;
@@ -35,10 +89,6 @@ import "./style.css"
     #app {
         display: flex;
         justify-content: center;
-        /* background-image: url("../assets/yrkGs9.png"); */
-        /* background-repeat: no-repeat; */
-        /* background-size: cover; */
-        /* background-position: center; */
         background-color: #333;
         padding: 20px;
     }

@@ -1,14 +1,7 @@
 <script lang="ts">
-	import Menu from "../components/Menu.svelte";
+	import Scene from "../components/Scene.svelte";
 
 </script>
-
-<div class="container">
-
-</div>
-
-<style>
-    .container {
-        display: flex;
-    }
+<Scene />
+<style scoped>
 </style>

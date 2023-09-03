@@ -7,12 +7,6 @@
             <a href="/shop" class="action">Shop</a>
     </main>
     <style scoped>
-        .row {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-        }
     .routes_menu {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
@@ -42,8 +36,5 @@
     }
     .action:active {
         background-color: rgba(128, 128, 128, 0.525);
-    }
-    .title {
-        font-size: 20px;
     }
     </style>

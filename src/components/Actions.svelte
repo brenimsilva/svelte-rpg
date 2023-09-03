@@ -1,5 +1,4 @@
 <script lang="ts">
-    export let isFighting = true;
     let potionQtd = 5;
     let potionCure = 10;
     let skillName = "Imbue"
@@ -11,30 +10,24 @@
     let slashPower = 8;
     let slashChance = 80;
 </script>
-
-<main class="container">
-    {#if isFighting}
-        <div class="fight_menu">
-            <div class="fight_action" id="slash_action">
-                <a href="{void(0)}" class="">Slash</a>
-                <p class="attack_info"><img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/sword.png" alt="sword"/> {slashMinPower} - {slashPower} ({slashChance}%)</p>
-            </div>
-            <div class="fight_action" id="skill_action">
-                <a href="{void(0)}" class="">Skill</a>
-                <p>{skillName} ({skillPower})</p>
-            </div>
-            <div class="fight_action" id="stab_action">
-                <a href="{void(0)}" class="">Stab</a>
-                <p class="attack_info"><img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/sword.png" alt="sword"/> {stabMinPower} - {stabPower} ({stabChance}%)</p>
-            </div>
-            <div class="fight_action" id="potion_action">
-                <a href="{void(0)}" class="">Potion</a>
-                <p>Qtd: {potionQtd} / Cure: ({potionCure})</p>
-            </div>
-        </div>
-    {/if}
-</main>
-
+<div class="fight_menu">
+    <div class="fight_action" id="slash_action">
+        <a href="{void(0)}" class="">Slash</a>
+        <p class="attack_info"><img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/sword.png" alt="sword"/> {slashMinPower} - {slashPower} ({slashChance}%)</p>
+    </div>
+    <div class="fight_action" id="skill_action">
+        <a href="{void(0)}" class="">Skill</a>
+        <p>{skillName} ({skillPower})</p>
+    </div>
+    <div class="fight_action" id="stab_action">
+        <a href="{void(0)}" class="">Stab</a>
+        <p class="attack_info"><img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/sword.png" alt="sword"/> {stabMinPower} - {stabPower} ({stabChance}%)</p>
+    </div>
+    <div class="fight_action" id="potion_action">
+        <a href="{void(0)}" class="">Potion</a>
+        <p>Qtd: {potionQtd} / Cure: ({potionCure})</p>
+    </div>
+</div>
 <style>
     #slash_action {
         background-color: rgba(58, 64, 58, 0.50);
@@ -97,33 +90,5 @@
         box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.517);
         padding: 5px;
         border-radius: 12px;
-    }
-    .container {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        padding: 20px;
-        gap: 10px;
-        width: 100%;
-        height: 200px;
-    }
-    .action {
-        border: 1px solid black;
-        padding: 5px;
-        cursor: pointer;
-        text-decoration: none;
-        transition: all 0.2s ease;
-        color: black;
-        user-select: none;
-    }
-    .action:hover {
-        background-color: gray;
-        color: white;
-    }
-    .action:active {
-        background-color: rgba(128, 128, 128, 0.525);
-    }
-    .title {
-        font-size: 20px;
     }
 </style>
