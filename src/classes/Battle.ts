@@ -1,5 +1,5 @@
 import type Player from "./Player";
-import { battleLogW } from "../stores/Store";
+import { battleLogW, playerMonsterW } from "../stores/Store";
 import type { BattleLogType } from "./Types";
 
 export default class Battle {
@@ -25,13 +25,17 @@ export default class Battle {
         }
     }
 
+    getBattleStatus() {
+        return {player: this.player, monster: this.monster}
+    }
+
     turn() {
         const p_dmg = this.calcDamage(this.player.stats.atk, this.monster.stats.def);
         this.update(this.monster, p_dmg);
         const m_dmg = this.calcDamage(this.monster.stats.atk, this.player.stats.def);
         this.update(this.player, m_dmg);
         this.updateLog(p_dmg, m_dmg, "Attacked", "Attacked");
-        return {player: this.player, monster: this.monster};
+        playerMonsterW.set(this.getBattleStatus());
     }
 
     updateLog(p_ammount: number, m_ammount: number, p_action: string, m_action: string) {

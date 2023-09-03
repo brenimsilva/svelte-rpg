@@ -1,4 +1,6 @@
 <script lang="ts">
+	import type Battle from "../classes/Battle";
+    import {battleW} from "../stores/Store";
     let potionQtd = 5;
     let potionCure = 10;
     let skillName = "Imbue"
@@ -9,24 +11,29 @@
     let slashMinPower = 3;
     let slashPower = 8;
     let slashChance = 80;
+    let b: Battle;
+    battleW.subscribe(prev => b = prev);
+    function fn() {
+        b.turn();
+    }
 </script>
 <div class="fight_menu">
-    <div class="fight_action" id="slash_action">
-        <a href="{void(0)}" class="">Slash</a>
+    <button class="fight_action" id="slash_action" on:click={fn}>
+        <a href="{void(0)}">Slash</a>
         <p class="attack_info"><img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/sword.png" alt="sword"/> {slashMinPower} - {slashPower} ({slashChance}%)</p>
-    </div>
-    <div class="fight_action" id="skill_action">
+    </button>
+    <button class="fight_action" id="skill_action">
         <a href="{void(0)}" class="">Skill</a>
         <p>{skillName} ({skillPower})</p>
-    </div>
-    <div class="fight_action" id="stab_action">
+    </button>
+    <button class="fight_action" id="stab_action">
         <a href="{void(0)}" class="">Stab</a>
         <p class="attack_info"><img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/sword.png" alt="sword"/> {stabMinPower} - {stabPower} ({stabChance}%)</p>
-    </div>
-    <div class="fight_action" id="potion_action">
+    </button>
+    <button class="fight_action" id="potion_action">
         <a href="{void(0)}" class="">Potion</a>
         <p>Qtd: {potionQtd} / Cure: ({potionCure})</p>
-    </div>
+    </button>
 </div>
 <style>
     #slash_action {
@@ -77,6 +84,7 @@
         background-color: rgba(169, 173, 169, 0.399);
         transition: all 0.2s;
         user-select: none;
+        border: none;
     }
     .fight_action:hover {
         cursor: pointer;
