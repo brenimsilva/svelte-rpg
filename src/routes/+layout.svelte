@@ -1,8 +1,6 @@
 <script>
 	import Actions from "../components/Actions.svelte";
-	import Menu from "../components/Menu.svelte";
 	import Routes from "../components/Routes.svelte";
-	import Scene from "../components/Scene.svelte";
     import "./style.css"
 
     let isFighting  = true;

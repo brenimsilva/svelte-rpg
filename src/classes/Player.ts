@@ -1,7 +1,5 @@
 interface IPlayer {
-    sp: number; // Stat points 
-    pp: number; // Perk points
-    ap: number; // Ascension points
+    levelSystem: ILevelSystem;
     stats: IStats;
     attributes: IAttributes;
     sprite: ISprite;
@@ -14,6 +12,7 @@ interface ISprite {
 }
 interface IStats {
     hp: number;
+    max_hp: number;
     atk: number;
     def: number;
     evs: number; // Evasion
@@ -28,18 +27,29 @@ interface IAttributes {
     agi: number;
 }
 
-export type {IPlayer, IStats, IAttributes, ISprite};
+interface ILevelSystem {
+    level: number;
+    exp: number;
+    exp_next_level: number;
+    sp: number;
+    ap: number;
+    pp: number;
+}
+
+export type {IPlayer, IStats, IAttributes, ISprite, ILevelSystem};
 
 export default class Player {
+    name: string;
     stats: IStats;
     attributes: IAttributes;
-    sp: number;
+    levelSystem: ILevelSystem
     sprite: ISprite;
-    constructor(stats: IStats, attributes: IAttributes, sp: number, sprite: ISprite){
+    constructor(name: string, stats: IStats, attributes: IAttributes, sprite: ISprite, levelSystem: ILevelSystem){
         this.stats = stats;
         this.attributes = attributes;
-        this.sp = sp;
         this.sprite = sprite;
+        this.levelSystem = levelSystem;
+        this.name = name;
     }
 
 

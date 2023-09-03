@@ -1,19 +1,20 @@
 <script lang="ts">
-	import type Player from "./player";
-	import  type { IPlayer } from "./player";
-
+	import Bar from "./Bar.svelte";
+    import type Player from "../classes/Player";
     export let player: Player;
-    export let charUrl = "../assets/char1bg-removebg.png";
     export let isMonster: boolean;
 </script>
 
 <div class="container {isMonster ? 'reverse' : ''}">
     <div class="stats_container">
         <div class="stats">
-            <p><span>HP: </span>{player.stats.hp}</p>
-            <p><span>ATK: </span>{player.stats.atk}</p>
+            <p><span>HP: </span>{player.stats.hp}/{player.stats.max_hp}</p>
+            <Bar max_stat={player.stats.max_hp} stat={player.stats.hp} color={"red"}/>
+            <p><span>EXP: </span>{player.levelSystem.exp}/{player.levelSystem.exp_next_level}</p>
+            <Bar max_stat={player.levelSystem.exp_next_level} stat={player.levelSystem.exp} color={"yellow"}/>
         </div>
         <div class="stats">
+            <p><span>ATK: </span>{player.stats.atk}</p>
             <p><span>EVS: </span>{player.stats.evs}</p>
             <p><span>DEF: </span>{player.stats.def}</p>
         </div>
@@ -57,8 +58,17 @@
     }
 
     .stats > p {
+        display: flex;
+        justify-content: center;
         padding: 0;
         margin: 0;
+        width: 100px;
+        gap: 5px;
+    }
+    .stats {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
     }
     .sprite_reverse {
         transform: scaleX(-1);
