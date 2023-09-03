@@ -1,38 +1,75 @@
-# create-svelte
-
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
-
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+Instale todas as dependências com o comando `npm install` (or `pnpm install` or `yarn`), start no server em DEV:
 
 ```bash
 npm run dev
 
-# or start the server and open the app in a new browser tab
+# Ou start o server e abra em uma nova aba
 npm run dev -- --open
 ```
 
-## Building
+## Game
 
-To create a production version of your app:
+- [Character](#character)
+    - [Level](#level)
+    - [Skills](#skills)
+    - [Stats](#stats)
+    - [Attributes](#attributes)
+    - [Perks](#perks-arvore-de-passivas)
+    - [Ascension](#ascension)
+- [Monster](#monster)
+    - [Drop](#drop)
+    - [Progression](#progression)
 
-```bash
-npm run build
-```
+## Character
 
-You can preview the production build with `npm run preview`.
+### Level
+- Ao matarmos monstros ganhamos experiência(**exp**)
+- Juntamos **exp** para aumentarmos o nível
+- Ao subir de nível ganhamos pontos para distribuir em stats. _Stats Points_ (**sp**)
+- Ao subir de nível ganhamos um _Perk Point_ (**pp**) 
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+### Skills
+- Você pode selecionar 1 skill por batalha
+- Essa skill terá um cooldown em turnos
+### Stats
+- Health Points **(HP)**
+- Attack **(ATK)**
+- Defense **(DEF)**
+- Evasion **(EVS)** 
+- Crit Chance **(CRTC)**
+- Crit Damange **(CRTD)**
+### Attributes
+- Strength **(STR)**
+- Vitality **(VIT)**
+- Dexterity **(DEX)**
+- Agility **(AGI)**
+
+### Perks (Arvore de passivas)
+- ^ ATK (%)
+- ^ DEF (%)
+- ^ HP (%)
+- ^ EVS (%)
+- ^ CRTC (%)
+- ^ CRTD (%)
+- Desconto no Shop
+- Velocidade de Training
+### Ascesion
+- Reseta o personagem para o nível 1
+- ? Equipamento reseta
+- Perks resetam
+- Ganha Ascension Points **(AP)**
+- Arvore de passivas Ascension
+
+---
+## Monster
+### Drop
+### Progression
+---
+
+## Mechanics
+### Battle Mechanics
+- Damage Calc = P_ATK - (M_DEF * P_ATK) / 100
+
+

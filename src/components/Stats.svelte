@@ -41,6 +41,7 @@
     }
     .image_container {
        width: 100%;
+       padding: 0 20px;
 
     }
     .image_reverse {
@@ -57,9 +58,6 @@
     }
     .sprite_reverse {
         transform: scaleX(-1);
-    }
-    img {
-        margin-right: 20px;
     }
 
 </style>

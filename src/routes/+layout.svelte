@@ -40,13 +40,11 @@
 
 <style scoped>
     #scene {
-        /* display: flex; */
         height: 310px;
         box-sizing: border-box;
         padding: 10px;
         width: 100%;
         box-shadow: 0 1px 3px rgba(0, 0, 0, 0.522);
-        /* background-color: #c3a66769; */
     }
     nav {
         background-color: black;
@@ -79,6 +77,7 @@
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        gap: 5px;
     }
     .fight_container {
         display: flex;

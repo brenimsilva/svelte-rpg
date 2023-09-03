@@ -30,7 +30,6 @@
 </div>
 <style>
     #slash_action {
-        background-color: rgba(58, 64, 58, 0.50);
         border-top-left-radius: 15px;
     }
     #slash_action:hover {
@@ -40,7 +39,6 @@
         background-color: rgba(58, 64, 58, 0.20);
     }
     #stab_action {
-        background-color: rgba(58, 64, 58, 0.50);
         border-bottom-left-radius: 15px;
     }
     #stab_action:hover {
@@ -51,23 +49,23 @@
     }
     #skill_action {
         border-top-right-radius: 12px;
-        background-color: rgba(0, 128, 0, 0.481) ;
+        background-color: #89986abb;
     }
     #skill_action:hover {
-        background-color: rgba(0, 128, 0, 0.381) ;
+        background-color: #89986a80;
     }
     #skill_action:active {
-        background-color: rgba(0, 128, 0, 0.181) ;
+        background-color: #89986a41;
     }
     #potion_action {
         border-bottom-right-radius: 12px;
-        background-color: rgba(0, 102, 255, 0.455);
+        background-color: rgba(0, 140, 255, 0.499);
     }
     #potion_action:hover {
-        background-color: rgba(0, 102, 255, 0.355);
+        background-color: rgba(0, 140, 255, 0.349);
     }
     #potion_action:active {
-        background-color: rgba(0, 102, 255, 0.155);
+        background-color: rgba(0, 140, 255, 0.159);
     }
     .attack_info {
         display: flex;
@@ -76,6 +74,7 @@
     .fight_action {
         padding: 15px;
         box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.507);
+        background-color: rgba(169, 173, 169, 0.399);
         transition: all 0.2s;
         user-select: none;
     }
@@ -86,7 +85,7 @@
     .fight_menu {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 5px;
+        gap: 10px;
         box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.517);
         padding: 5px;
         border-radius: 12px;
