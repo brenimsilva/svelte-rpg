@@ -1,5 +1,4 @@
 <script lang="ts">
-	import type Battle from "../classes/Battle";
 	import type Player from "../classes/Player";
     import {battleW, playerMonsterW} from "../stores/Store";
     let potionQtd = 5;

@@ -1,6 +1,6 @@
 import type Player from "./Player";
 import { battleLogW, playerMonsterW } from "../stores/Store";
-import type { BattleLogType } from "./Types";
+import { Action, type BattleLogType } from "./Types";
 
 export type IAttackStats = {
     min: number;
@@ -39,19 +39,19 @@ export default class Battle {
         this.update(this.monster, p_dmg);
         const m_dmg = this.calcDamage(this.monster.stats.atk, this.player.stats.def);
         this.update(this.player, m_dmg);
-        this.updateLog(p_dmg, m_dmg, "Attacked", "Attacked");
+        this.updateLog(p_dmg, m_dmg, Action.SLASH, Action.STAB);
         playerMonsterW.set(this.getBattleStatus());
     }
 
-    updateLog(p_ammount: number, m_ammount: number, p_action: string, m_action: string) {
+    updateLog(p_ammount: number, m_ammount: number, p_action: Action, m_action: Action) {
         battleLogW.update(prev => [...prev, {from: this.player, to: this.monster, action: p_action, ammount: p_ammount}]);
         battleLogW.update(prev => [...prev, {from: this.monster, to: this.player, action: m_action, ammount: m_ammount}]);
     }
 
-    calcAttackStats(): IAttackStats {
-        // return {
-        //     chance_rate: this.player.attributes.dex * (this.monster.stats.evs / 100),
-        //     min: 
-        // }
-    }
+    // calcAttackStats(): IAttackStats {
+    //     // return {
+    //     //     chance_rate: this.player.attributes.dex * (this.monster.stats.evs / 100),
+    //     //     min: 
+    //     // }
+    // }
 }
