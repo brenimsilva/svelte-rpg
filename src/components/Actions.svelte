@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type Battle from "../classes/Battle";
-    import {battleW} from "../stores/Store";
+	import type Player from "../classes/Player";
+    import {battleW, playerMonsterW} from "../stores/Store";
     let potionQtd = 5;
     let potionCure = 10;
     let skillName = "Imbue"
@@ -11,16 +12,21 @@
     let slashMinPower = 3;
     let slashPower = 8;
     let slashChance = 80;
-    let b: Battle;
-    battleW.subscribe(prev => b = prev);
     function fn() {
-        b.turn();
+        $battleW.turn();
     }
+    let player: Player;
+    let monster: Player;
+
+    playerMonsterW.subscribe(prev => {
+        player = prev.player;
+        monster = prev.monster;
+    })
 </script>
 <div class="fight_menu">
     <button class="fight_action" id="slash_action" on:click={fn}>
         <a href="{void(0)}">Slash</a>
-        <p class="attack_info"><img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/sword.png" alt="sword"/> {slashMinPower} - {slashPower} ({slashChance}%)</p>
+        <p class="attack_info"><img width="30" height="30" src="https://img.icons8.com/ios-glyphs/30/sword.png" alt="sword"/> {player.stats.atk} - {slashPower} ({slashChance}%)</p>
     </button>
     <button class="fight_action" id="skill_action">
         <a href="{void(0)}" class="">Skill</a>

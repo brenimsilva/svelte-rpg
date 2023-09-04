@@ -2,6 +2,11 @@ import type Player from "./Player";
 import { battleLogW, playerMonsterW } from "../stores/Store";
 import type { BattleLogType } from "./Types";
 
+export type IAttackStats = {
+    min: number;
+    max: number;
+    chance_rate: number;
+}
 export default class Battle {
     private player: Player;
     private monster: Player;
@@ -41,5 +46,12 @@ export default class Battle {
     updateLog(p_ammount: number, m_ammount: number, p_action: string, m_action: string) {
         battleLogW.update(prev => [...prev, {from: this.player, to: this.monster, action: p_action, ammount: p_ammount}]);
         battleLogW.update(prev => [...prev, {from: this.monster, to: this.player, action: m_action, ammount: m_ammount}]);
+    }
+
+    calcAttackStats(): IAttackStats {
+        // return {
+        //     chance_rate: this.player.attributes.dex * (this.monster.stats.evs / 100),
+        //     min: 
+        // }
     }
 }

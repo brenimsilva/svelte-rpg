@@ -36,6 +36,7 @@ interface ILevelSystem {
     pp: number;
 }
 
+
 export type {IPlayer, IStats, IAttributes, ISprite, ILevelSystem};
 
 export default class Player {
