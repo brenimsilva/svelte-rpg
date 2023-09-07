@@ -1,0 +1,12 @@
+{
+	"/": [],
+	"/api/hero": [
+		"src/routes/api/hero/+server.ts"
+	],
+	"/api/hero/[id]": [
+		"src/routes/api/hero/[id]/+server.ts"
+	],
+	"/battle": [
+		"src/routes/battle/+page.ts"
+	]
+}
