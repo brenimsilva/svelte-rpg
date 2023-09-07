@@ -1,4 +1,4 @@
-import { Action, type BattleLogType } from "./Types";
+import type { BattleLogType } from "./Types";
 
 export default class Logger {
     constructor() {}
