@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "VP6+Uefb2mRVhavymwY3y7RZtMcjQ3xwAgvhxNqFwvIf1iw+tR9PboRv7UTh4mkCqak00e5hx8Ire+Z0Cb1tWA==",
+  "success": true,
+  "projectFilePath": "C:\\study\\svelte-rpg\\server\\svelte-rpg-backend\\svelte-rpg-backend\\svelte-rpg-backend.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\breno\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "C:\\Users\\breno\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\breno\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
+    "C:\\Users\\breno\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
+    "C:\\Users\\breno\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
+    "C:\\Users\\breno\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.5.0\\swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
