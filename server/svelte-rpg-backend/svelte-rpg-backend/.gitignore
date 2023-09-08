@@ -1,0 +1,62 @@
+﻿# Ignore Visual Studio files
+.vscode/
+.vs/
+*_i.c
+*_p.c
+*.suo
+*.sln.docstates
+*.user
+*.userosscache
+*.suo
+*.user
+*.suo
+*.suo
+[Tt]humbs.db
+*.DS_Store
+
+# Ignore NuGet packages
+packages/
+*.nupkg
+# NuGet v3's project.json files
+project.lock.json
+project.fragment.lock.json
+npm-debug.log
+
+# Ignore build output
+[Tt]est[Rr]esult*/
+[Bb]in/
+[Oo]bj/
+ 
+# Ignore Visual Studio Code
+.vscode/
+
+# Ignore JetBrains Rider
+.idea/
+
+# Ignore Rider
+.idea/
+
+# Ignore Rider files
+.idea/
+
+# Ignore Rider files
+.idea/
+
+# Ignore .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Ignore Rider
+.idea/
+
+# Ignore Rider files
+.idea/
+
+# Ignore Rider files
+.idea/
+
+# Ignore .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
