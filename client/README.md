@@ -34,6 +34,11 @@ npm run dev -- --open
 - Você pode selecionar 1 skill por batalha
 - Essa skill terá um cooldown em turnos
 ### Stats
+- Strength **(STR)**
+- Vitality **(VIT)**
+- Dexterity **(DEX)**
+- Agility **(AGI)**
+### Attributes
 - Health Points **(HP)**
 - Max Health Points **(MAX_HP)**
 - Attack **(ATK)**
@@ -41,11 +46,6 @@ npm run dev -- --open
 - Evasion **(EVS)** 
 - Crit Chance **(CRTC)**
 - Crit Damage **(CRTD)**
-### Attributes
-- Strength **(STR)**
-- Vitality **(VIT)**
-- Dexterity **(DEX)**
-- Agility **(AGI)**
 
 ### Perks (Arvore de passivas)
 - ^ ATK (%)

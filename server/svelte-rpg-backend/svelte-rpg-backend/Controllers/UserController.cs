@@ -46,10 +46,11 @@ public class UserController : ControllerBase
             {
                 UserName = user.UserName,
                 created_at = DateTime.Now,
-                heroes = new List<Hero>(),
+                Heroes = new List<Hero>(),
                 updated_at = DateTime.Now,
                 Email = user.Email,
-                Password = hash
+                Password = hash,
+                UserTypeId = 1,
             };
             _users.Add(createdUser);
             return CreatedAtAction(nameof(GetByUsername), new { username = createdUser.UserName }, createdUser);

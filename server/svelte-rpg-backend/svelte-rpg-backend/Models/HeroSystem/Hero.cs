@@ -14,6 +14,8 @@ public class Hero
     public List<Perk> Perks { get; set; }
     public int Level { get; set; }
     public int Exp { get; set; }
+    public int StatPoints { get; set; }
+    public int PerkPoints { get; set; }
     [DataType(DataType.DateTime)] public DateTime created_at { get; set; }
     [DataType(DataType.DateTime)] public DateTime updated_at { get; set; }
 }

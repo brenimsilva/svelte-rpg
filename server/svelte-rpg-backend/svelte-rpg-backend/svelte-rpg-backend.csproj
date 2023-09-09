@@ -14,14 +14,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Context\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <Compile Remove="Service\**" />
       <Compile Remove="Models\Pessoa.cs" />
       <Compile Remove="Models\HeroSystem\StatSet.cs" />
       <Compile Remove="Models\HeroSystem\AttributeSet.cs" />
+      <Compile Remove="WeatherForecast.cs" />
     </ItemGroup>
 
     <ItemGroup>
