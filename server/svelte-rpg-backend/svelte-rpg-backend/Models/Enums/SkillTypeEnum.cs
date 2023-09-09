@@ -2,5 +2,7 @@
 
 public enum SkillTypeEnum
 {
-    Buff, Offensive, Cure
+    Buff = 1,
+    Offensive = 2,
+    Cure = 3
 }

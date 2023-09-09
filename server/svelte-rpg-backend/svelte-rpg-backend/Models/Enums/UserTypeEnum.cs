@@ -2,5 +2,8 @@
 
 public enum UserTypeEnum
 {
-    Admin, Moderator, Player, Spectator
+    Admin = 1,
+    Moderator = 2,
+    Player = 3,
+    Spectator = 4
 }

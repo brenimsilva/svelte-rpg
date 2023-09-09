@@ -2,5 +2,8 @@
 
 public enum ItemTypeEnum
 {
-   Equipment, Consumable, Miscellaneous, Gem
+   Equipment = 1,
+   Consumable = 2,
+   Miscellaneous = 3,
+   Gem = 4
 }
