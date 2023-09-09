@@ -18,6 +18,7 @@ public class HeroController : ControllerBase
     public IEnumerable<string> GetHeroesByPlayerId(string id)
     {
         return _heroList;
+        
     }
     
 }
