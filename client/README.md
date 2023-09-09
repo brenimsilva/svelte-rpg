@@ -35,6 +35,7 @@ npm run dev -- --open
 - Essa skill terá um cooldown em turnos
 ### Stats
 - Health Points **(HP)**
+- Max Health Points **(MAX_HP)**
 - Attack **(ATK)**
 - Defense **(DEF)**
 - Evasion **(EVS)** 
