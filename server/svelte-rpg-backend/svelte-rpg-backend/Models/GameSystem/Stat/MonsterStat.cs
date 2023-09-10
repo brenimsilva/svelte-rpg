@@ -9,5 +9,5 @@ public class MonsterStat
    [Key] public int Id { get; set; }
    [ForeignKey("Stat")] public string StatShortName { get; set; }
    [ForeignKey("Monster")] public int MonsterId { get; set; }
-   public int Value { get; set; }
+   [Required]public int Value { get; set; }
 }

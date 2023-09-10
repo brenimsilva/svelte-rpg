@@ -7,10 +7,13 @@ public class Hero
 {
     [Key, Required] public int Id { get; set; }
     [ForeignKey("User")] public string Owner { get; set; }
+    [ForeignKey("BackPack")] public int BackPackId { get; set; }
+    public virtual BackPack BackPack { get; set; }
     public IEnumerable<HeroStat> Stats { get; set; }
     public IEnumerable<Skill> Skills { get; set; }
     public IEnumerable<HeroAttribute> Attributes { get; set; }
-    public List<Perk> Perks { get; set; }
+    public IEnumerable<HeroEquipment> HeroEquipments { get; set; }
+    public IEnumerable<Perk> Perks { get; set; }
     [Required]public int Level { get; set; }
     [Required]public int Exp { get; set; }
     [Required]public int StatPoints { get; set; }

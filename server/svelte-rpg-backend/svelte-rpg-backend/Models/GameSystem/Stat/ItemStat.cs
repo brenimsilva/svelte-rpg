@@ -9,5 +9,5 @@ public class ItemStat
    [Key] public int Id { get; set; }
    [ForeignKey("Stat")] public string StatShortName { get; set; }
    [ForeignKey("Item")] public int ItemId { get; set; }
-   public int Value { get; set; }
+   [Required]public int Value { get; set; }
 }

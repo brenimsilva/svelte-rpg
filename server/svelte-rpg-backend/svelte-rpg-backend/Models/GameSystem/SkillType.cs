@@ -8,5 +8,4 @@ public class SkillType
    [Key] public int Id { get; set; }
    [Required, MaxLength(32)]public string Type { get; set; } 
    [Required, MaxLength(64)] public string Description { get; set; }
-   [ForeignKey("ActionText")]public int ActionId { get; set; }
 }
