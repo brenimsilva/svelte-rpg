@@ -8,5 +8,5 @@ public class HeroStat
    [Key] public int Id { get; set; }
    [ForeignKey("Stat")] public string StatShortName { get; set; }
    [ForeignKey("Hero")] public int HeroId { get; set; }
-   public int Value { get; set; }
+   [Required]public int Value { get; set; }
 }

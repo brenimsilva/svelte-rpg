@@ -8,5 +8,4 @@ public class ItemLoot
    [Key] public int Id { get; set; } 
    [ForeignKey("Loot")] public int LootId { get; set; }
    [ForeignKey("Item")] public int ItemId { get; set; }
-   [Required]public double DropChance { get; set; }
 }

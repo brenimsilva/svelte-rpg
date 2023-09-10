@@ -27,7 +27,7 @@ public class RpgContext: DbContext
     public DbSet<ItemLoot> ItemLootSet { get; set; }
     public DbSet<Loot> LootSet { get; set; }
     public DbSet<MonsterLoot> MonsterLootSet { get; set; }
-    public DbSet<HeroStat> CharacterStatSet { get; set; }
+    public DbSet<HeroStat> HeroStatSet { get; set; }
     public DbSet<ItemStat> ItemStatSet { get; set; }
     public DbSet<MonsterStat> MonsterStatSet { get; set; }
     public DbSet<PerkStat> PerkStatSet { get; set; }

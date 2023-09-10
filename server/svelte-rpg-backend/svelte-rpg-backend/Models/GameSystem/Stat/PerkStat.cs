@@ -9,5 +9,5 @@ public class PerkStat
    [Key] public int Id { get; set; }
    [ForeignKey("Stat")] public string StatShortName { get; set; }
    [ForeignKey("Perk")] public int PerkId { get; set; }
-   public int Value { get; set; }
+   [Required] public int Value { get; set; }
 }
