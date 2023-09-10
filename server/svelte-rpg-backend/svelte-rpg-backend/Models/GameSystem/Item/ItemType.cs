@@ -5,6 +5,6 @@ namespace svelte_rpg_backend.Models;
 public class ItemType
 {
     [Key] public int Id { get; set; } 
-    public string Name { get; set; }
-    public string Description { get; set; }
+    [Required]public string Name { get; set; }
+    [Required]public string Description { get; set; }
 }

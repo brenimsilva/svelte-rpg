@@ -8,6 +8,7 @@ public class Item
     [Key] public int Id { get; set; }
     [ForeignKey("ItemType")] public int ItemTypeId { get; set; }
     [ForeignKey("Rarity")] public int RarityId { get; set; }
-    public string Name { get; set; }
-    public int ItemLevel { get; set; } // +1, +2, +3, ... +13
+    [ForeignKey("ActionText")] public int ActionTextId { get; set; }
+    [Required, MaxLength(32)]public string Name { get; set; }
+    [Required] public int ItemLevel { get; set; } // +1, +2, +3, ... +13
 }

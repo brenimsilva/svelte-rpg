@@ -1,7 +1,9 @@
-﻿namespace svelte_rpg_backend.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace svelte_rpg_backend.Models;
 
 public class ActionText
 {
-   public int Id { get; set; } 
-   public string ActionName { get; set; }
+   [Key] public int Id { get; set; } 
+   [Required, MaxLength(32)]public string ActionName { get; set; }
 }

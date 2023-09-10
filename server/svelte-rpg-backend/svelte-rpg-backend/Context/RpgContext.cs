@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using svelte_rpg_backend.Models;
-using svelte_rpg_backend.Models.Attribute;
-using Attribute = System.Attribute;
+using svelte_rpg_backend.Models;
+using Attribute = svelte_rpg_backend.Models.Attribute;
 
 namespace svelte_rpg_backend.Context;
 

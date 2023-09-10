@@ -5,5 +5,5 @@ namespace svelte_rpg_backend.Models;
 public class UserType
 {
     [Key] public int Id { get; set; }
-    public string Name { get; set; } // "admin", "moderator", "player", "spectator"
+    [MaxLength(24), Required]public string Name { get; set; } // "admin", "moderator", "player", "spectator"
 }
