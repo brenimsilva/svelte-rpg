@@ -8,7 +8,7 @@ public class Hero
 {
     [Key, Required] public int Id { get; set; }
     [ForeignKey("User")] public string Owner { get; set; }
-    public IEnumerable<CharacterStat> Stats { get; set; }
+    public IEnumerable<HeroStat> Stats { get; set; }
     public IEnumerable<Skill> Skills { get; set; }
     public IEnumerable<HeroAttribute> Attributes { get; set; }
     public List<Perk> Perks { get; set; }

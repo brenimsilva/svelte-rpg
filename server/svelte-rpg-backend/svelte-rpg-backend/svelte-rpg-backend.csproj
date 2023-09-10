@@ -26,6 +26,8 @@
       <Compile Remove="Models\HeroSystem\StatSet.cs" />
       <Compile Remove="Models\HeroSystem\AttributeSet.cs" />
       <Compile Remove="WeatherForecast.cs" />
+      <Compile Remove="Models\GameSystem\AttributeSet.cs" />
+      <Compile Remove="Models\GameSystem\StatSet.cs" />
     </ItemGroup>
 
     <ItemGroup>
@@ -39,5 +41,7 @@
     <ItemGroup>
       <None Remove="Service\**" />
     </ItemGroup>
+
+
 
 </Project>

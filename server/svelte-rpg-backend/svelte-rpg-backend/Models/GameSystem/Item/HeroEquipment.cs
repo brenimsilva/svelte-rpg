@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace svelte_rpg_backend.Models;
 
-public class CharacterStat
+public class HeroEquipment
 {
-   [Key] public int Id { get; set; }
-   [ForeignKey("Stat")] public string StatShortName { get; set; }
+   [Key] public int Id { get; set; } 
+   [ForeignKey("EquipmentSlot")] public int EquipmentSlotId { get; set; }
    [ForeignKey("Hero")] public int HeroId { get; set; }
-   public int Value { get; set; }
+   [ForeignKey("Item")] public int ItemId { get; set; }
 }
