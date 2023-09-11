@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using svelte_rpg_backend.Context;
+using svelte_rpg_backend.Models;
+using svelte_rpg_backend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,8 @@ builder.Services.AddSwaggerGen();
 string conString = builder.Configuration.GetConnectionString("SvelteRpgConnection");
 ServerVersion version = ServerVersion.AutoDetect(conString);
 builder.Services.AddDbContext<RpgContext>(opts => opts.UseMySql(conString, version));
+builder.Services.AddScoped<UserService, UserService>();
+builder.Services.AddScoped<HeroService, HeroService>();
 
 // APP
 var app = builder.Build();

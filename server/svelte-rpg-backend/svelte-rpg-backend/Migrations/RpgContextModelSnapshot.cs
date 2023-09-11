@@ -61,17 +61,6 @@ namespace svelte_rpg_backend.Migrations
                     b.ToTable("AttributeSet");
                 });
 
-            modelBuilder.Entity("svelte_rpg_backend.Models.BackPack", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BackPack");
-                });
-
             modelBuilder.Entity("svelte_rpg_backend.Models.Config", b =>
                 {
                     b.Property<int>("Id")
@@ -113,18 +102,15 @@ namespace svelte_rpg_backend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("BackPackId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Exp")
                         .HasColumnType("int");
 
-                    b.Property<int>("Level")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Owner")
+                    b.Property<string>("HeroName")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<int>("Level")
+                        .HasColumnType("int");
 
                     b.Property<int>("PerkPoints")
                         .HasColumnType("int");
@@ -132,8 +118,8 @@ namespace svelte_rpg_backend.Migrations
                     b.Property<int>("StatPoints")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserName")
-                        .HasColumnType("varchar(50)");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("created_at")
                         .HasColumnType("datetime(6)");
@@ -143,9 +129,7 @@ namespace svelte_rpg_backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BackPackId");
-
-                    b.HasIndex("UserName");
+                    b.HasIndex("UserId");
 
                     b.ToTable("HeroSet");
                 });
@@ -298,17 +282,17 @@ namespace svelte_rpg_backend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("BackPackId")
+                    b.Property<int>("HeroId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ItemId")
+                    b.Property<int?>("ItemId")
                         .HasColumnType("int");
 
                     b.HasKey("ItemSlotId");
 
-                    b.HasIndex("BackPackId");
+                    b.HasIndex("HeroId");
 
-                    b.ToTable("ItemSlot");
+                    b.ToTable("ItemSlotSet");
                 });
 
             modelBuilder.Entity("svelte_rpg_backend.Models.ItemStat", b =>
@@ -636,9 +620,9 @@ namespace svelte_rpg_backend.Migrations
 
             modelBuilder.Entity("svelte_rpg_backend.Models.User", b =>
                 {
-                    b.Property<string>("UserName")
-                        .HasMaxLength(50)
-                        .HasColumnType("varchar(50)");
+                    b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -647,6 +631,11 @@ namespace svelte_rpg_backend.Migrations
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("varchar(50)");
 
                     b.Property<int>("UserTypeId")
                         .HasColumnType("int");
@@ -657,7 +646,7 @@ namespace svelte_rpg_backend.Migrations
                     b.Property<DateTime>("updated_at")
                         .HasColumnType("datetime(6)");
 
-                    b.HasKey("UserName");
+                    b.HasKey("UserId");
 
                     b.ToTable("UserSet");
                 });
@@ -680,17 +669,13 @@ namespace svelte_rpg_backend.Migrations
 
             modelBuilder.Entity("svelte_rpg_backend.Models.Hero", b =>
                 {
-                    b.HasOne("svelte_rpg_backend.Models.BackPack", "BackPack")
-                        .WithMany()
-                        .HasForeignKey("BackPackId")
+                    b.HasOne("svelte_rpg_backend.Models.User", "User")
+                        .WithMany("Heroes")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("svelte_rpg_backend.Models.User", null)
-                        .WithMany("Heroes")
-                        .HasForeignKey("UserName");
-
-                    b.Navigation("BackPack");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("svelte_rpg_backend.Models.HeroAttribute", b =>
@@ -758,9 +743,9 @@ namespace svelte_rpg_backend.Migrations
 
             modelBuilder.Entity("svelte_rpg_backend.Models.ItemSlot", b =>
                 {
-                    b.HasOne("svelte_rpg_backend.Models.BackPack", null)
+                    b.HasOne("svelte_rpg_backend.Models.Hero", null)
                         .WithMany("ItemSlots")
-                        .HasForeignKey("BackPackId")
+                        .HasForeignKey("HeroId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -838,16 +823,13 @@ namespace svelte_rpg_backend.Migrations
                     b.Navigation("SkillType");
                 });
 
-            modelBuilder.Entity("svelte_rpg_backend.Models.BackPack", b =>
-                {
-                    b.Navigation("ItemSlots");
-                });
-
             modelBuilder.Entity("svelte_rpg_backend.Models.Hero", b =>
                 {
                     b.Navigation("Attributes");
 
                     b.Navigation("HeroEquipments");
+
+                    b.Navigation("ItemSlots");
 
                     b.Navigation("Perks");
 
