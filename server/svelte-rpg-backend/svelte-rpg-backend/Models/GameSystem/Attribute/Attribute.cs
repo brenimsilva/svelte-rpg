@@ -4,8 +4,8 @@ namespace svelte_rpg_backend.Models;
 
 public class Attribute
 {
-    [Key]public int Id { get; set; }
-    [MaxLength(10), Required]public string ShortName { get; set; }
-    [MaxLength(32), Required]public string AttributeName { get; set; }
-    [MaxLength(128), Required]public string Description { get; set; }
+    [Key] public int Id { get; set; }
+    [Required, StringLength(10)]public string ShortName { get; set; }
+    [Required, StringLength(32)]public string AttributeName { get; set; }
+    [Required, StringLength(128)]public string Description { get; set; }
 }

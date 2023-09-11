@@ -11,7 +11,6 @@ public class Hero
     [Key, Required] public int Id { get; set; }
     [Required] public string HeroName { get; set; }
     [ForeignKey("User")] public int UserId { get; set; }
-    public virtual User User { get; set; }
     public IEnumerable<ItemSlot> ItemSlots { get; set; }
     public IEnumerable<HeroStat> Stats { get; set; }
     public IEnumerable<Skill> Skills { get; set; }

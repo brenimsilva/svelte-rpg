@@ -17,7 +17,7 @@ public class UserService
 
    public async Task<User> GetByUsername(string username)
    {
-       var user = await _context.UserSet.Include(i => i.Heroes)
+       var user = await _context.UserSet.Include(i => i.Heroes).ThenInclude(e => e.ItemSlots)
                         .FirstOrDefaultAsync(x => x.UserName == username);
        return user;
    }
