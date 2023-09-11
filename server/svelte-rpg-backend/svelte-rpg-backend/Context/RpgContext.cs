@@ -28,6 +28,7 @@ public class RpgContext: DbContext
     public DbSet<EquipmentSlot> EquipmentSlotSet { get; set; }
     public DbSet<HeroEquipment> HeroEquipmentSet { get; set; }
     public DbSet<Item> ItemSet { get; set; }
+    public DbSet<ItemCatalog> ItemCatalogSet { get; set; }
     public DbSet<ItemType> ItemTypeSet { get; set; }
     public DbSet<Rarity> RaritySet { get; set; }
     
@@ -53,14 +54,4 @@ public class RpgContext: DbContext
     public DbSet<Config> ConfigSet { get; set; }
     public DbSet<User> UserSet { get; set; }
     public DbSet<UserType> UserTypeSet { get; set; }
-
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<Hero>().HasOne(p => p.User)
-            .WithMany(u => u.Heroes)
-            .HasForeignKey(p => p.UserId);
-        // base.OnModelCreating(modelBuilder);
-        
-    }
 }

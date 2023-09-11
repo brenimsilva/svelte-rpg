@@ -6,12 +6,11 @@ namespace svelte_rpg_backend.Models;
 public class Item
 {
     [Key] public int Id { get; set; }
-    [ForeignKey("ItemType")] public int ItemTypeId { get; set; }
-    public virtual ItemType ItemType { get; set; }
-    [ForeignKey("Rarity")] public int RarityId { get; set; }
-    public virtual Rarity Rarity { get; set; }
-    [ForeignKey("ActionText")] public int ActionTextId { get; set; }
-    public virtual ActionText ActionText { get; set; }
-    [Required, MaxLength(32)]public string Name { get; set; }
+    [ForeignKey("ItemCatalog")] public int ItemCatalogId { get; set; }
+    public virtual IEnumerable<ItemAttribute> ItemAttributes { get; set; }
+    public virtual IEnumerable<ItemStat> ItemStats { get; set; }
+    public virtual IEnumerable<ItemLoot> ItemLoots { get; set; }
+    public virtual ItemSlot? Slot { get; set; }
+    public virtual ItemCatalog ItemCatalog { get; set; }
     [Required] public int ItemLevel { get; set; } // +1, +2, +3, ... +13
 }

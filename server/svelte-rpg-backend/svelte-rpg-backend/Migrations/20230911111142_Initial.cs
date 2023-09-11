@@ -79,36 +79,17 @@ namespace svelte_rpg_backend.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "ItemAttributeSet",
+                name: "ItemSet",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    AttributeShortName = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ItemId = table.Column<int>(type: "int", nullable: false),
-                    Value = table.Column<double>(type: "double", nullable: false)
+                    ItemListId = table.Column<int>(type: "int", nullable: false),
+                    ItemLevel = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ItemAttributeSet", x => x.Id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "ItemStatSet",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    StatShortName = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ItemId = table.Column<int>(type: "int", nullable: false),
-                    Value = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ItemStatSet", x => x.Id);
+                    table.PrimaryKey("PK_ItemSet", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -126,22 +107,6 @@ namespace svelte_rpg_backend.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ItemTypeSet", x => x.Id);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "MonsterLootSet",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    MonsterId = table.Column<int>(type: "int", nullable: false),
-                    LootId = table.Column<int>(type: "int", nullable: false),
-                    DropChance = table.Column<double>(type: "double", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MonsterLootSet", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -217,28 +182,6 @@ namespace svelte_rpg_backend.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "UserSet",
-                columns: table => new
-                {
-                    UserId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    UserName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Email = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Password = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    UserTypeId = table.Column<int>(type: "int", nullable: false),
-                    created_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    updated_at = table.Column<DateTime>(type: "datetime(6)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserSet", x => x.UserId);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
                 name: "UserTypeSet",
                 columns: table => new
                 {
@@ -250,6 +193,34 @@ namespace svelte_rpg_backend.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserTypeSet", x => x.Id);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "ItemAttributeSet",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    AttributeId = table.Column<int>(type: "int", nullable: false),
+                    ItemId = table.Column<int>(type: "int", nullable: false),
+                    Value = table.Column<double>(type: "double", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ItemAttributeSet", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ItemAttributeSet_AttributeSet_AttributeId",
+                        column: x => x.AttributeId,
+                        principalTable: "AttributeSet",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ItemAttributeSet_ItemSet_ItemId",
+                        column: x => x.ItemId,
+                        principalTable: "ItemSet",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -280,8 +251,7 @@ namespace svelte_rpg_backend.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    AttributeShortName = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    AttributeId = table.Column<int>(type: "int", nullable: false),
                     MonsterId = table.Column<int>(type: "int", nullable: false),
                     Value = table.Column<double>(type: "double", nullable: false)
                 },
@@ -289,9 +259,43 @@ namespace svelte_rpg_backend.Migrations
                 {
                     table.PrimaryKey("PK_MonsterAttributeSet", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_MonsterAttributeSet_AttributeSet_AttributeId",
+                        column: x => x.AttributeId,
+                        principalTable: "AttributeSet",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_MonsterAttributeSet_MonsterSet_MonsterId",
                         column: x => x.MonsterId,
                         principalTable: "MonsterSet",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "ItemStatSet",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    StatId = table.Column<int>(type: "int", nullable: false),
+                    ItemId = table.Column<int>(type: "int", nullable: false),
+                    Value = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ItemStatSet", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ItemStatSet_ItemSet_ItemId",
+                        column: x => x.ItemId,
+                        principalTable: "ItemSet",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ItemStatSet_StatSet_StatId",
+                        column: x => x.StatId,
+                        principalTable: "StatSet",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -303,8 +307,7 @@ namespace svelte_rpg_backend.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    StatShortName = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    StatId = table.Column<int>(type: "int", nullable: false),
                     MonsterId = table.Column<int>(type: "int", nullable: false),
                     Value = table.Column<int>(type: "int", nullable: false)
                 },
@@ -317,41 +320,93 @@ namespace svelte_rpg_backend.Migrations
                         principalTable: "MonsterSet",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MonsterStatSet_StatSet_StatId",
+                        column: x => x.StatId,
+                        principalTable: "StatSet",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "ItemSet",
+                name: "UserSet",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    UserName = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Email = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Password = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    UserTypeId = table.Column<int>(type: "int", nullable: false),
+                    created_at = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    updated_at = table.Column<DateTime>(type: "datetime(6)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserSet", x => x.UserId);
+                    table.ForeignKey(
+                        name: "FK_UserSet_UserTypeSet_UserTypeId",
+                        column: x => x.UserTypeId,
+                        principalTable: "UserTypeSet",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "ItemLootSet",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    ItemTypeId = table.Column<int>(type: "int", nullable: false),
-                    RarityId = table.Column<int>(type: "int", nullable: false),
-                    ActionTextId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "varchar(32)", maxLength: 32, nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ItemLevel = table.Column<int>(type: "int", nullable: false)
+                    LootId = table.Column<int>(type: "int", nullable: false),
+                    ItemId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ItemSet", x => x.Id);
+                    table.PrimaryKey("PK_ItemLootSet", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ItemSet_ActionTextSet_ActionTextId",
-                        column: x => x.ActionTextId,
-                        principalTable: "ActionTextSet",
+                        name: "FK_ItemLootSet_ItemSet_ItemId",
+                        column: x => x.ItemId,
+                        principalTable: "ItemSet",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ItemSet_ItemTypeSet_ItemTypeId",
-                        column: x => x.ItemTypeId,
-                        principalTable: "ItemTypeSet",
+                        name: "FK_ItemLootSet_LootSet_LootId",
+                        column: x => x.LootId,
+                        principalTable: "LootSet",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "MonsterLootSet",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    MonsterId = table.Column<int>(type: "int", nullable: false),
+                    LootId = table.Column<int>(type: "int", nullable: false),
+                    DropChance = table.Column<double>(type: "double", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MonsterLootSet", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_MonsterLootSet_LootSet_LootId",
+                        column: x => x.LootId,
+                        principalTable: "LootSet",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ItemSet_RaritySet_RarityId",
-                        column: x => x.RarityId,
-                        principalTable: "RaritySet",
+                        name: "FK_MonsterLootSet_MonsterSet_MonsterId",
+                        column: x => x.MonsterId,
+                        principalTable: "MonsterSet",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -386,40 +441,24 @@ namespace svelte_rpg_backend.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "ItemLootSet",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    LootId = table.Column<int>(type: "int", nullable: false),
-                    ItemId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ItemLootSet", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ItemLootSet_LootSet_LootId",
-                        column: x => x.LootId,
-                        principalTable: "LootSet",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
                 name: "HeroAttributeSet",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    AttributeShortName = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    AttributeId = table.Column<int>(type: "int", nullable: false),
                     HeroId = table.Column<int>(type: "int", nullable: false),
                     Value = table.Column<double>(type: "double", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_HeroAttributeSet", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_HeroAttributeSet_AttributeSet_AttributeId",
+                        column: x => x.AttributeId,
+                        principalTable: "AttributeSet",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_HeroAttributeSet_HeroSet_HeroId",
                         column: x => x.HeroId,
@@ -443,9 +482,21 @@ namespace svelte_rpg_backend.Migrations
                 {
                     table.PrimaryKey("PK_HeroEquipmentSet", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_HeroEquipmentSet_EquipmentSlotSet_EquipmentSlotId",
+                        column: x => x.EquipmentSlotId,
+                        principalTable: "EquipmentSlotSet",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_HeroEquipmentSet_HeroSet_HeroId",
                         column: x => x.HeroId,
                         principalTable: "HeroSet",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_HeroEquipmentSet_ItemSet_ItemId",
+                        column: x => x.ItemId,
+                        principalTable: "ItemSet",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -457,8 +508,7 @@ namespace svelte_rpg_backend.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    StatShortName = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    StatId = table.Column<int>(type: "int", nullable: false),
                     HeroId = table.Column<int>(type: "int", nullable: false),
                     Value = table.Column<int>(type: "int", nullable: false)
                 },
@@ -469,6 +519,12 @@ namespace svelte_rpg_backend.Migrations
                         name: "FK_HeroStatSet_HeroSet_HeroId",
                         column: x => x.HeroId,
                         principalTable: "HeroSet",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_HeroStatSet_StatSet_StatId",
+                        column: x => x.StatId,
+                        principalTable: "StatSet",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
@@ -492,6 +548,11 @@ namespace svelte_rpg_backend.Migrations
                         principalTable: "HeroSet",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ItemSlotSet_ItemSet_ItemId",
+                        column: x => x.ItemId,
+                        principalTable: "ItemSet",
+                        principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -560,14 +621,19 @@ namespace svelte_rpg_backend.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    AttributeShortName = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    AttributeId = table.Column<int>(type: "int", nullable: false),
                     PerkId = table.Column<int>(type: "int", nullable: false),
                     Value = table.Column<double>(type: "double", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PerkAttributeSet", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PerkAttributeSet_AttributeSet_AttributeId",
+                        column: x => x.AttributeId,
+                        principalTable: "AttributeSet",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_PerkAttributeSet_PerkSet_PerkId",
                         column: x => x.PerkId,
@@ -583,8 +649,7 @@ namespace svelte_rpg_backend.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    StatShortName = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    StatId = table.Column<int>(type: "int", nullable: false),
                     PerkId = table.Column<int>(type: "int", nullable: false),
                     Value = table.Column<int>(type: "int", nullable: false)
                 },
@@ -597,8 +662,19 @@ namespace svelte_rpg_backend.Migrations
                         principalTable: "PerkSet",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PerkStatSet_StatSet_StatId",
+                        column: x => x.StatId,
+                        principalTable: "StatSet",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HeroAttributeSet_AttributeId",
+                table: "HeroAttributeSet",
+                column: "AttributeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_HeroAttributeSet_HeroId",
@@ -606,9 +682,19 @@ namespace svelte_rpg_backend.Migrations
                 column: "HeroId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_HeroEquipmentSet_EquipmentSlotId",
+                table: "HeroEquipmentSet",
+                column: "EquipmentSlotId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_HeroEquipmentSet_HeroId",
                 table: "HeroEquipmentSet",
                 column: "HeroId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HeroEquipmentSet_ItemId",
+                table: "HeroEquipmentSet",
+                column: "ItemId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_HeroSet_UserId",
@@ -621,24 +707,29 @@ namespace svelte_rpg_backend.Migrations
                 column: "HeroId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_HeroStatSet_StatId",
+                table: "HeroStatSet",
+                column: "StatId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItemAttributeSet_AttributeId",
+                table: "ItemAttributeSet",
+                column: "AttributeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItemAttributeSet_ItemId",
+                table: "ItemAttributeSet",
+                column: "ItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItemLootSet_ItemId",
+                table: "ItemLootSet",
+                column: "ItemId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ItemLootSet_LootId",
                 table: "ItemLootSet",
                 column: "LootId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ItemSet_ActionTextId",
-                table: "ItemSet",
-                column: "ActionTextId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ItemSet_ItemTypeId",
-                table: "ItemSet",
-                column: "ItemTypeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ItemSet_RarityId",
-                table: "ItemSet",
-                column: "RarityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ItemSlotSet_HeroId",
@@ -646,9 +737,30 @@ namespace svelte_rpg_backend.Migrations
                 column: "HeroId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ItemSlotSet_ItemId",
+                table: "ItemSlotSet",
+                column: "ItemId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItemStatSet_ItemId",
+                table: "ItemStatSet",
+                column: "ItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItemStatSet_StatId",
+                table: "ItemStatSet",
+                column: "StatId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_LootSet_MonsterId",
                 table: "LootSet",
                 column: "MonsterId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MonsterAttributeSet_AttributeId",
+                table: "MonsterAttributeSet",
+                column: "AttributeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MonsterAttributeSet_MonsterId",
@@ -656,9 +768,29 @@ namespace svelte_rpg_backend.Migrations
                 column: "MonsterId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_MonsterLootSet_LootId",
+                table: "MonsterLootSet",
+                column: "LootId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MonsterLootSet_MonsterId",
+                table: "MonsterLootSet",
+                column: "MonsterId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_MonsterStatSet_MonsterId",
                 table: "MonsterStatSet",
                 column: "MonsterId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_MonsterStatSet_StatId",
+                table: "MonsterStatSet",
+                column: "StatId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PerkAttributeSet_AttributeId",
+                table: "PerkAttributeSet",
+                column: "AttributeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PerkAttributeSet_PerkId",
@@ -676,6 +808,11 @@ namespace svelte_rpg_backend.Migrations
                 column: "PerkId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PerkStatSet_StatId",
+                table: "PerkStatSet",
+                column: "StatId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_SkillSet_ActionId",
                 table: "SkillSet",
                 column: "ActionId");
@@ -689,18 +826,17 @@ namespace svelte_rpg_backend.Migrations
                 name: "IX_SkillSet_SkillTypeId",
                 table: "SkillSet",
                 column: "SkillTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserSet_UserTypeId",
+                table: "UserSet",
+                column: "UserTypeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AttributeSet");
-
-            migrationBuilder.DropTable(
                 name: "ConfigSet");
-
-            migrationBuilder.DropTable(
-                name: "EquipmentSlotSet");
 
             migrationBuilder.DropTable(
                 name: "HeroAttributeSet");
@@ -718,13 +854,13 @@ namespace svelte_rpg_backend.Migrations
                 name: "ItemLootSet");
 
             migrationBuilder.DropTable(
-                name: "ItemSet");
-
-            migrationBuilder.DropTable(
                 name: "ItemSlotSet");
 
             migrationBuilder.DropTable(
                 name: "ItemStatSet");
+
+            migrationBuilder.DropTable(
+                name: "ItemTypeSet");
 
             migrationBuilder.DropTable(
                 name: "MonsterAttributeSet");
@@ -742,25 +878,28 @@ namespace svelte_rpg_backend.Migrations
                 name: "PerkStatSet");
 
             migrationBuilder.DropTable(
+                name: "RaritySet");
+
+            migrationBuilder.DropTable(
                 name: "SkillSet");
 
             migrationBuilder.DropTable(
-                name: "StatSet");
+                name: "EquipmentSlotSet");
 
             migrationBuilder.DropTable(
-                name: "UserTypeSet");
+                name: "ItemSet");
 
             migrationBuilder.DropTable(
                 name: "LootSet");
 
             migrationBuilder.DropTable(
-                name: "ItemTypeSet");
-
-            migrationBuilder.DropTable(
-                name: "RaritySet");
+                name: "AttributeSet");
 
             migrationBuilder.DropTable(
                 name: "PerkSet");
+
+            migrationBuilder.DropTable(
+                name: "StatSet");
 
             migrationBuilder.DropTable(
                 name: "ActionTextSet");
@@ -776,6 +915,9 @@ namespace svelte_rpg_backend.Migrations
 
             migrationBuilder.DropTable(
                 name: "UserSet");
+
+            migrationBuilder.DropTable(
+                name: "UserTypeSet");
         }
     }
 }

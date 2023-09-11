@@ -13,5 +13,4 @@ public class StatSet
     public int CRTC { get; set; } //Crit Chance
     public int CRTD { get; set; } // Crit Damage
     [ForeignKey("Hero")] public int HeroId { get; set; }
-    
 }

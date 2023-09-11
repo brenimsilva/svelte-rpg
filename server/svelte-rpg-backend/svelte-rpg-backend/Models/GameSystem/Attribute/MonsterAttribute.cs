@@ -6,7 +6,8 @@ namespace svelte_rpg_backend.Models;
 public class MonsterAttribute
 {
    [Key] public int Id { get; set; }
-   [ForeignKey("Attribute"), Required] public string AttributeShortName { get; set; }
-   [ForeignKey("Monster"), Required] public int MonsterId { get; set; }
+   [ForeignKey("Attribute")] public int AttributeId { get; set; }
+   public virtual Attribute Attribute { get; set; }
+   [ForeignKey("Monster")] public int MonsterId { get; set; }
    [Required]public double Value { get; set; }
 }
