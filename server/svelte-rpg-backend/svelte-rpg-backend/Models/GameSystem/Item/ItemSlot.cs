@@ -8,6 +8,7 @@ public class ItemSlot
 {
     [Key] public int ItemSlotId { get; set; }
     [ForeignKey("Item")] public int? ItemId { get; set; }
+    public virtual Item? Item { get; set; }
     [ForeignKey("Hero")] public int HeroId { get; set; }
 
 

@@ -10,7 +10,6 @@ public class Item
     public virtual IEnumerable<ItemAttribute> ItemAttributes { get; set; }
     public virtual IEnumerable<ItemStat> ItemStats { get; set; }
     public virtual IEnumerable<ItemLoot> ItemLoots { get; set; }
-    public virtual ItemSlot? Slot { get; set; }
     public virtual ItemCatalog ItemCatalog { get; set; }
     [Required] public int ItemLevel { get; set; } // +1, +2, +3, ... +13
 }
