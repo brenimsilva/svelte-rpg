@@ -21,9 +21,6 @@
     </ItemGroup>
 
     <ItemGroup>
-    </ItemGroup>
-
-    <ItemGroup>
       <EmbeddedResource Remove="Service\**" />
       <!-- <EmbeddedResource Remove="Migrations\**" /> -->
     </ItemGroup>
