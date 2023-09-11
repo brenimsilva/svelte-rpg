@@ -1,10 +1,8 @@
-﻿using System.Net;
-using System.Text;
-using Microsoft.AspNetCore.JsonPatch;
+﻿using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using svelte_rpg_backend.Models;
 using svelte_rpg_backend.Models.DTO;
-using svelte_rpg_backend.Util;
+using svelte_rpg_backend.Services;
 
 namespace svelte_rpg_backend.Controllers;
 
@@ -12,11 +10,11 @@ namespace svelte_rpg_backend.Controllers;
 [Route("[controller]")]
 public class UserController : ControllerBase
 {
-    private static List<User> _users = new List<User>();
+    private UserService _service;
 
-    public UserController()
+    public UserController(UserService service)
     {
-        
+        _service = service;
     }
 
     [HttpGet("{username}")]
@@ -24,7 +22,7 @@ public class UserController : ControllerBase
     {
         try
         {
-            var user = _users.FirstOrDefault(e => e.UserName == username);
+            var user =  await _service.GetByUsername(username);
             if (user != null)
             {
                 return Ok(user);
@@ -41,18 +39,7 @@ public class UserController : ControllerBase
     {
         try
         {
-            string hash = StringUtilities.Hash(user.Password);
-            User createdUser = new User()
-            {
-                UserName = user.UserName,
-                created_at = DateTime.Now,
-                Heroes = new List<Hero>(),
-                updated_at = DateTime.Now,
-                Email = user.Email,
-                Password = hash,
-                UserTypeId = 1,
-            };
-            _users.Add(createdUser);
+            User createdUser = await _service.Add(user);
             return CreatedAtAction(nameof(GetByUsername), new { username = createdUser.UserName }, createdUser);
         }
         catch(Exception e)
@@ -66,15 +53,7 @@ public class UserController : ControllerBase
     {
         try
         {
-            var user = _users.FirstOrDefault(x => x.UserName == username);
-            if (user != null)
-            {
-                userPatch.ApplyTo(user);
-            }
-            else
-            {
-                return NotFound();
-            }
+            User user = await _service.UpdateUser(username, userPatch);
             return CreatedAtAction(nameof(GetByUsername), new { username = username }, user);
         }
         catch (Exception e)
