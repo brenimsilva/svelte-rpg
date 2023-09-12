@@ -47,6 +47,44 @@ public class SystemService : ISystemService
         stats.Add(new Rarity() {Id = 6, Name = "Legendary", Description = "Legendary items are the rarest and most powerful items in the game. They possess legendary abilities, unique effects, or unparalleled stats, making them the most sought-after and prestigious items", Color = "#f7033c"});
         return stats;
     }
+    private List<ItemType> _startItemType()
+    {
+        List<ItemType> itemTypes = new List<ItemType>();
+        itemTypes.Add(new ItemType() {Id = 1, Name = "Equipment", Description = "A Item that can be equipped (Check slot)"});
+        itemTypes.Add(new ItemType() {Id = 2, Name = "Consumable", Description = "A Item that can be consumable during fight"});
+        itemTypes.Add(new ItemType() {Id = 3, Name = "Miscellaneous", Description = "Maybe it has some value at the shop..."});
+        itemTypes.Add(new ItemType() {Id = 4, Name = "Gem", Description = "With this Item you can upgrade your equipments"});
+        return itemTypes;
+    }
+    private List<SkillType> _startSkillType()
+    {
+        List<SkillType> skillTypes = new List<SkillType>();
+        skillTypes.Add(new SkillType() {Id = 1, Name = "Buff", Description = "A Skill that increases your power"});
+        skillTypes.Add(new SkillType() {Id = 2, Name = "Offensive", Description = "A Offensive skill that deals damage"});
+        skillTypes.Add(new SkillType() {Id = 3, Name = "Cure", Description = "This is skill will heal your HP"});
+        return skillTypes;
+    }
+
+    private List<Monster> _startMonsters()
+    {
+        List<Monster> monsters = new List<Monster>();
+        // monsters.Add(new Monster() {Id = 1, Name = "Dragon", Level = 40,Attributes = new List<MonsterAttribute>() {new MonsterAttribute() {}}});
+        return monsters;
+    }
+
+    private List<UserType> _startUserTypes()
+    {
+        List<UserType> userTypes = new List<UserType>();
+        foreach (UserTypeEnum enumValue in Enum.GetValues(typeof(UserTypeEnum)))
+        {
+            userTypes.Add(new UserType()
+            {
+                Id = (int)enumValue,
+                Name = StringUtilities.PascalToWord(enumValue.ToString())
+            });
+        } 
+        return userTypes;
+    }
     private List<EquipmentSlot> _StartEquipmentSlot()
     {
         List<EquipmentSlot> equipmentSlots = new List<EquipmentSlot>();
@@ -69,11 +107,11 @@ public class SystemService : ISystemService
             {
                 _context.AttributeSet.AddRangeAsync(_StartAttributes()),
                 _context.EquipmentSlotSet.AddRangeAsync(_StartEquipmentSlot()),
-                // _context.ItemTypeSet.AddRangeAsync(),
+                _context.ItemTypeSet.AddRangeAsync(_startItemType()),
                 _context.RaritySet.AddRangeAsync(_startRarities()),
-                // _context.SkillTypeSet.AddRangeAsync(),
+                _context.SkillTypeSet.AddRangeAsync(_startSkillType()),
                 _context.StatSet.AddRangeAsync(_StartStats()),
-                // _context.UserTypeSet.AddRangeAsync()
+                _context.UserTypeSet.AddRangeAsync(_startUserTypes())
             };
              await Task.WhenAll(tasks);
              await _context.SaveChangesAsync();
