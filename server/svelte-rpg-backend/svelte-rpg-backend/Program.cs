@@ -18,6 +18,7 @@ ServerVersion version = ServerVersion.AutoDetect(conString);
 builder.Services.AddDbContext<RpgContext>(opts => opts.UseMySql(conString, version));
 builder.Services.AddScoped<UserService, UserService>();
 builder.Services.AddScoped<HeroService, HeroService>();
+builder.Services.AddScoped<SystemService, SystemService>();
 
 // APP
 var app = builder.Build();
