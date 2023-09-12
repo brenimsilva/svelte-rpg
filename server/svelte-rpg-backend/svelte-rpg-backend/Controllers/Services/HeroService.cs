@@ -17,8 +17,9 @@ public class HeroService : IHeroService
 
     public async Task<Hero> GetById(int heroId)
     {
-        return await _context.HeroSet.Include(e => e.ItemSlots)
+        var hero = await _context.HeroSet.Include(e => e.ItemSlots)
                                     .FirstOrDefaultAsync(e => e.Id == heroId);
+        return hero;
     }
 
     public async Task<Hero> Create(HeroDTO heroDto)
@@ -48,6 +49,7 @@ public class HeroService : IHeroService
     {
         Hero hero = await _context.HeroSet.FindAsync(Id);
         _context.HeroSet.Remove(hero);
+        await _context.SaveChangesAsync();
         return Id;
     }
 }

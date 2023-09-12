@@ -17,4 +17,29 @@ public class StringUtilities
     {
         return a.ToLower() == b.ToLower();
     }
+    public static string PascalToWord(string pascalCase)
+    {
+        var words = new List<string>();
+        var currentWord = new StringBuilder();
+
+        foreach (char c in pascalCase)
+        {
+            if (char.IsUpper(c))
+            {
+                if (currentWord.Length > 0)
+                {
+                    words.Add(currentWord.ToString());
+                    currentWord.Clear();
+                }
+            }
+            currentWord.Append(c);
+        }
+
+        if (currentWord.Length > 0)
+        {
+            words.Add(currentWord.ToString());
+        }
+
+        return string.Join(" ", words);
+    }
 }

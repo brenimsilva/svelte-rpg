@@ -1,9 +1,11 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace svelte_rpg_backend.Models;
 
 public class Monster
 {
-    [Key] public int Id { get; set; }
+    [Key, DatabaseGenerated(DatabaseGeneratedOption.None)] public int Id { get; set; }
     [Required, MaxLength(32)]public string Name { get; set; }
     [Required]public int Level { get; set; }
     public IEnumerable<MonsterAttribute> Attributes { get; set; }
