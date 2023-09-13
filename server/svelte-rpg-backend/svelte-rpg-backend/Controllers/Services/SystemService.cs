@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using svelte_rpg_backend.Context;
 using svelte_rpg_backend.Models;
 using svelte_rpg_backend.Models.Enums;
@@ -65,10 +65,19 @@ public class SystemService : ISystemService
         return skillTypes;
     }
 
+    private List<MonsterAttribute> _startMonsterAttributes()
+    {
+        MonsterAttribute Attack = new MonsterAttribute(AttributeEnum.Attack, MonsterEnum.Rat, 5);
+        MonsterAttribute Defense = new MonsterAttribute(AttributeEnum.Defense, MonsterEnum.Rat, 1);
+
+        return null;
+    }
+
     private List<Monster> _startMonsters()
     {
         List<Monster> monsters = new List<Monster>();
-        // monsters.Add(new Monster() {Id = 1, Name = "Dragon", Level = 40,Attributes = new List<MonsterAttribute>() {new MonsterAttribute() {}}});
+        monsters.Add(new Monster() {Id = 1, Name = "Rat", Level = 1,Attributes = new List<MonsterAttribute>() {new MonsterAttribute() {}},
+            MonsterLoots = new List<MonsterLoot>() {}, updated_at = DateTime.Now, created_at = DateTime.Now, Stats = new List<MonsterStat>(){}});
         return monsters;
     }
 
