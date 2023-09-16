@@ -39,6 +39,10 @@
       <Compile Remove="Controllers\Services\BackPackService.cs" />
       <Compile Remove="Models\GameSystem\BackPack\BackPack.cs" />
       <Compile Remove="Controllers\Services\IBackPackService.cs" />
+      <Compile Remove="Models\DTO\Request\AttributeGroupDTO.cs" />
+      <Compile Remove="Models\DTO\Request\DroppedLootDTO.cs" />
+      <Compile Remove="Models\DTO\Request\MonsterStatsAndAttributesDTO.cs" />
+      <Compile Remove="Models\DTO\Request\StatGroupDTO.cs" />
     </ItemGroup>
     <!-- <ItemGroup>
       <Folder Include="Migrations\" />

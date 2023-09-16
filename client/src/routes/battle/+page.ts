@@ -10,7 +10,7 @@
 
     const m_stats: IStats = {atk: 1, def: 0, hp: 10, max_hp: 10, evs: 0, crtc: 0, crtd: 0};
     const m_attributes: IAttributes = {agi: 0, dex: 0, vit: 0, str: 0};
-    const m_sprite: ISprite =  {height: 1, url: "assets/rat01.png", width: 1};
+    const m_sprite: ISprite =  {height: 1, url: "assets/monsters/rat01.png", width: 1};
     const m_levelSystem: ILevelSystem = {ap: 0, exp: 10, exp_next_level: 10, level: 1, pp: 0, sp: 0};
     let monster = new Player("Rat", m_stats, m_attributes, m_sprite, m_levelSystem);
     let b = new Battle(player, monster);

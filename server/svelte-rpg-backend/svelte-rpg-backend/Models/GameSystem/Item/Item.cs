@@ -9,7 +9,6 @@ public class Item
     [ForeignKey("ItemCatalog")] public int ItemCatalogId { get; set; }
     public virtual IEnumerable<ItemAttribute> ItemAttributes { get; set; }
     public virtual IEnumerable<ItemStat> ItemStats { get; set; }
-    public virtual IEnumerable<ItemLoot> ItemLoots { get; set; }
     public virtual ItemCatalog ItemCatalog { get; set; }
     [Required] public int ItemLevel { get; set; } // +1, +2, +3, ... +13
 }

@@ -6,6 +6,6 @@ public enum RarityEnum
    Uncommon = 2, // green
    Rare = 3, // blue
    Epic = 4, //  purple
-   MasterWork = 5, // orange
+   Masterwork = 5, // orange
    Legendary = 6, // red
 }

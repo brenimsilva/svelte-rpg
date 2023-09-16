@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using svelte_rpg_backend.Context;
 using svelte_rpg_backend.Models;
+using svelte_rpg_backend.Models.DTO;
 using svelte_rpg_backend.Models.Enums;
 using svelte_rpg_backend.Util;
 using Attribute = svelte_rpg_backend.Models.Attribute;
@@ -10,9 +11,11 @@ namespace svelte_rpg_backend.Services;
 public class SystemService : ISystemService
 {
     private RpgContext _context;
-    public SystemService(RpgContext context)
+    private MonsterService _monsterService;
+    public SystemService(RpgContext context, MonsterService monsterService)
     {
         this._context = context;
+        this._monsterService = monsterService;
     }
 
     private List<Attribute> _StartAttributes()
@@ -65,20 +68,34 @@ public class SystemService : ISystemService
         return skillTypes;
     }
 
-    private List<MonsterAttribute> _startMonsterAttributes()
+    private async Task<List<MonsterCatalog>> _startMonsters()
     {
-        MonsterAttribute Attack = new MonsterAttribute(AttributeEnum.Attack, MonsterEnum.Rat, 5);
-        MonsterAttribute Defense = new MonsterAttribute(AttributeEnum.Defense, MonsterEnum.Rat, 1);
-
-        return null;
+        List<MonsterCatalog> monsters = new List<MonsterCatalog>();
+        MonsterCatalog Rat = new MonsterCatalog()
+        {
+            Id = (int)MonsterEnum.Rat, Name = "Rat",
+            created_at = DateTime.Now, updated_at = DateTime.Now, Level = 1, Tier = 1
+        };
+        monsters.Add(Rat);
+        await _context.MonsterCatalogSet.AddRangeAsync(monsters);
+        await GenerateStats(Rat.Id, 1, 1, 1, 5);
+        await _context.SaveChangesAsync();
+        return monsters;
     }
 
-    private List<Monster> _startMonsters()
+    public async Task<List<ActorStat>> GenerateStats(int actorId, int str, int dex, int agi, int vit)
     {
-        List<Monster> monsters = new List<Monster>();
-        monsters.Add(new Monster() {Id = 1, Name = "Rat", Level = 1,Attributes = new List<MonsterAttribute>() {new MonsterAttribute() {}},
-            MonsterLoots = new List<MonsterLoot>() {}, updated_at = DateTime.Now, created_at = DateTime.Now, Stats = new List<MonsterStat>(){}});
-        return monsters;
+        List<ActorStat> statList = new List<ActorStat>();
+        ActorStat STR = new ActorStat(StatEnum.Strength, actorId, str);
+        ActorStat DEX = new ActorStat(StatEnum.Dexterity, actorId, dex);
+        ActorStat AGI = new ActorStat(StatEnum.Agility, actorId, agi);
+        ActorStat VIT = new ActorStat(StatEnum.Vitality, actorId, vit);
+        statList.Add(STR);
+        statList.Add(DEX);
+        statList.Add(AGI);
+        statList.Add(VIT);
+        await _context.AddRangeAsync(statList);
+        return statList;
     }
 
     private List<UserType> _startUserTypes()
@@ -120,10 +137,11 @@ public class SystemService : ISystemService
                 _context.RaritySet.AddRangeAsync(_startRarities()),
                 _context.SkillTypeSet.AddRangeAsync(_startSkillType()),
                 _context.StatSet.AddRangeAsync(_StartStats()),
-                _context.UserTypeSet.AddRangeAsync(_startUserTypes())
+                _context.UserTypeSet.AddRangeAsync(_startUserTypes()),
             };
-             await Task.WhenAll(tasks);
-             await _context.SaveChangesAsync();
+            await _startMonsters();
+            await Task.WhenAll(tasks);
+            await _context.SaveChangesAsync();
             return true;
         }
         catch(Exception ex)

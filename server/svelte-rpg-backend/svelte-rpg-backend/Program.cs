@@ -19,6 +19,8 @@ builder.Services.AddDbContext<RpgContext>(opts => opts.UseMySql(conString, versi
 builder.Services.AddScoped<UserService, UserService>();
 builder.Services.AddScoped<HeroService, HeroService>();
 builder.Services.AddScoped<SystemService, SystemService>();
+builder.Services.AddScoped<MonsterService, MonsterService>();
+builder.Services.AddScoped<GameLogicService, GameLogicService>();
 
 // APP
 var app = builder.Build();

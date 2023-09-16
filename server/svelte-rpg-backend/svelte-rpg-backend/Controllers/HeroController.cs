@@ -24,9 +24,10 @@ public class HeroController : ControllerBase
             var hero = await _service.GetById(heroId);
             return Ok(hero);
         }
-        catch
+        catch(Exception e)
         {
-            return BadRequest();
+            Console.WriteLine(e.Message);
+            return BadRequest(e.Message);
         }
     }
 

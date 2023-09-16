@@ -7,6 +7,7 @@
     const x = crypto.randomUUID()
 </script>
 
+
 <div class="container">
     <Stats player={$playerMonsterW.monster} isMonster={true}/>
     <Stats player={$playerMonsterW.player} isMonster={false}/>
