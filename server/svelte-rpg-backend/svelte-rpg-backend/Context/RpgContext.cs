@@ -14,11 +14,20 @@ public class RpgContext: DbContext
     {
     }
 
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Hero>().ToTable("Hero");
+        modelBuilder.Entity<MonsterCatalog>().ToTable("MonsterCatalog");
+        modelBuilder.Entity<Monster>().ToTable("Monster");
+    }
+
     //Attribute
     public DbSet<Attribute> AttributeSet { get; set; }
+    public DbSet<AttributeStatsRatio> AttributeStatRatio { get; set; }
     public DbSet<HeroAttribute> HeroAttributeSet { get; set; }
     public DbSet<ItemAttribute> ItemAttributeSet { get; set; }
-    public DbSet<MonsterAttribute> MonsterAttributeSet { get; set; }
+    public DbSet<ActorAttribute> MonsterAttributeSet { get; set; }
     public DbSet<PerkAttribute> PerkAttributeSet { get; set; }
     
     //BackPack
@@ -38,19 +47,25 @@ public class RpgContext: DbContext
     public DbSet<MonsterLoot> MonsterLootSet { get; set; }
     
     //Stat
-    public DbSet<HeroStat> HeroStatSet { get; set; }
     public DbSet<ItemStat> ItemStatSet { get; set; }
-    public DbSet<MonsterStat> MonsterStatSet { get; set; }
+    public DbSet<ActorStat> ActorStatSet { get; set; }
     public DbSet<PerkStat> PerkStatSet { get; set; }
     public DbSet<Stat> StatSet { get; set; }
     
     //GameSystem
     public DbSet<ActionText> ActionTextSet { get; set; }
+    public DbSet<Actor> Actor { get; set; }
+    public DbSet<BattleState> BattleStateSet { get; set; }
     public DbSet<Hero> HeroSet { get; set; }
-    public DbSet<Monster> MonsterSet { get; set; }
     public DbSet<Perk> PerkSet { get; set; }
     public DbSet<Skill> SkillSet { get; set; }
     public DbSet<SkillType> SkillTypeSet { get; set; }
+    
+    //Monster
+    public DbSet<Monster> MonsterSet { get; set; }
+    public DbSet<MonsterCatalog> MonsterCatalogSet { get; set; }
+    
+    //System
     public DbSet<Config> ConfigSet { get; set; }
     public DbSet<User> UserSet { get; set; }
     public DbSet<UserType> UserTypeSet { get; set; }

@@ -5,21 +5,28 @@ using svelte_rpg_backend.Models.Enums;
 
 namespace svelte_rpg_backend.Models;
 
-public class MonsterAttribute
+public class ActorAttribute
 {
    [Key] public int Id { get; set; }
    [ForeignKey("Attribute")] public int AttributeId { get; set; }
    public virtual Attribute Attribute { get; set; }
-   [ForeignKey("Monster")] public int MonsterId { get; set; }
+   [ForeignKey("Actor")] public int ActorId { get; set; }
    [Required]public double Value { get; set; }
    
-   public MonsterAttribute() {}
+   public ActorAttribute() {}
 
-   public MonsterAttribute(AttributeEnum attr, MonsterEnum mob, double value)
+   public ActorAttribute(AttributeEnum attr, int actorId, double value)
    {
       this.Id = 0;
       this.AttributeId = (int)attr;
-      this.MonsterId = (int)mob;
+      this.ActorId = actorId;
+      this.Value = value;
+   }
+   public ActorAttribute(AttributeEnum attr, double value)
+   {
+      this.Id = 0;
+      this.AttributeId = (int)attr;
       this.Value = value;
    }
 }
+
