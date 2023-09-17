@@ -30,6 +30,18 @@ public class SystemService : ISystemService
         attributes.Add(new () {Id = 7, AttributeName = "Critical Damage", ShortName = "CRTD", Description = "Specifies the additional damage multiplier applied when a critical hit occurs, amplifying the impact of such attacks"});
         return attributes;
     }
+    private async Task<List<AttributeStatsRatio>> _StartAttributeStatsRatio()
+    {
+        List<AttributeStatsRatio> attributeStatsRatioList = new();
+        attributeStatsRatioList.Add(new AttributeStatsRatio() {Id = 0, AttributeId = (int)AttributeEnum.MaxHealthPoints, Ratio = 5.0, StatId = (int)StatEnum.Vitality});
+        attributeStatsRatioList.Add(new AttributeStatsRatio() {Id = 0, AttributeId = (int)AttributeEnum.MaxHealthPoints, Ratio = 1.5, StatId = (int)StatEnum.Strength});
+        attributeStatsRatioList.Add(new AttributeStatsRatio() {Id = 0, AttributeId = (int)AttributeEnum.Attack, Ratio = 2.0, StatId = (int)StatEnum.Strength});
+        attributeStatsRatioList.Add(new AttributeStatsRatio() {Id = 0, AttributeId = (int)AttributeEnum.Defense, Ratio = 0.5, StatId = (int)StatEnum.Dexterity});
+        attributeStatsRatioList.Add(new AttributeStatsRatio() {Id = 0, AttributeId = (int)AttributeEnum.CritDamage, Ratio = 1.0, StatId = (int)StatEnum.Dexterity});
+        attributeStatsRatioList.Add(new AttributeStatsRatio() {Id = 0, AttributeId = (int)AttributeEnum.Defense, Ratio = 1.0, StatId = (int)StatEnum.Vitality});
+        attributeStatsRatioList.Add(new AttributeStatsRatio() {Id = 0, AttributeId = (int)AttributeEnum.Evasion, Ratio = 1.0, StatId = (int)StatEnum.Agility});
+        return attributeStatsRatioList;
+    }
     private List<Stat> _StartStats()
     {
         List<Stat> stats = new List<Stat>();
@@ -125,6 +137,7 @@ public class SystemService : ISystemService
         return equipmentSlots;
     }
 
+
     public async Task<bool> DataBaseInit()
     {
         try
@@ -138,6 +151,7 @@ public class SystemService : ISystemService
                 _context.SkillTypeSet.AddRangeAsync(_startSkillType()),
                 _context.StatSet.AddRangeAsync(_StartStats()),
                 _context.UserTypeSet.AddRangeAsync(_startUserTypes()),
+                _context.AttributeStatRatio.AddRangeAsync(await _StartAttributeStatsRatio()),
             };
             await _startMonsters();
             await Task.WhenAll(tasks);

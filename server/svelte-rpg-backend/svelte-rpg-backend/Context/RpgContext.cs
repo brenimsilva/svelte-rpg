@@ -25,9 +25,8 @@ public class RpgContext: DbContext
     //Attribute
     public DbSet<Attribute> AttributeSet { get; set; }
     public DbSet<AttributeStatsRatio> AttributeStatRatio { get; set; }
-    public DbSet<HeroAttribute> HeroAttributeSet { get; set; }
     public DbSet<ItemAttribute> ItemAttributeSet { get; set; }
-    public DbSet<ActorAttribute> MonsterAttributeSet { get; set; }
+    public DbSet<ActorAttribute> ActorAttributeSet { get; set; }
     public DbSet<PerkAttribute> PerkAttributeSet { get; set; }
     
     //BackPack

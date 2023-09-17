@@ -11,32 +11,45 @@ public class HeroService : IHeroService
 {
     private RpgContext _context;
     private SystemService _systemService;
-    public HeroService(RpgContext ctx, SystemService systemService)
+    private GameLogicService _gameLogicService;
+    public HeroService(RpgContext ctx, SystemService systemService, GameLogicService glService)
     {
         this._context = ctx;
         this._systemService = systemService;
+        this._gameLogicService = glService;
     }
 
     public async Task<HeroResponseDto> GetById(int heroId)
     {
-        var hero = await _context.HeroSet.Include(e => e.ItemSlots).Include(e => e.Stats).ThenInclude(e => e.Stat)
+        var hero = await _context.HeroSet.Include(e => e.ItemSlots).Include(e => e.Stats).ThenInclude(e => e.Stat).Include(e => e.Attributes).ThenInclude(e => e.Attribute)
                                      .FirstOrDefaultAsync(e => e.Id == heroId);
         List<StatResponseDTO> statList = new();
+        List<AttributeResponseDTO> attributeList = new();
+        
         hero.Stats.ToList().ForEach(x => statList.Add(new StatResponseDTO(x.Stat.ShortName, x.Stat.StatName, x.Stat.Description, x.Value)));
+        hero.Attributes.ToList().ForEach(x => attributeList.Add(new AttributeResponseDTO(x.Value, x.Attribute.ShortName, x.Attribute.AttributeName, x.Attribute.Description)));
         HeroResponseDto heroResponse = new HeroResponseDto()
         {
             Level = hero.Level,
             Exp = hero.Exp,
             Name = hero.Name,
             Tier = hero.Tier,
-            AttributeList = new List<AttributeResponseDTO>(),
+            Attributes = attributeList,
             ItemSlots = hero.ItemSlots.ToList(),
             PerkPoints = hero.PerkPoints,
-            StatList = statList,
+            Stats = statList,
             StatPoints = hero.StatPoints
         };
 
         return heroResponse;
+    }
+
+    private async Task<List<ActorAttribute>> _UpdateHeroAttributes(Hero hero)
+    {
+        List<ActorAttribute> heroAttributes = await _gameLogicService.CalcAttributes(hero);
+        await _context.ActorAttributeSet.AddRangeAsync(heroAttributes);
+        await _context.SaveChangesAsync();
+        return heroAttributes;
     }
 
     public async Task<Hero> Create(HeroDTO heroDto)
@@ -51,6 +64,7 @@ public class HeroService : IHeroService
 
         await _systemService.GenerateStats(hero.Id, 5,5,5,10);
         await _context.SaveChangesAsync();
+        await _UpdateHeroAttributes(hero);
         return hero;
     }
 
