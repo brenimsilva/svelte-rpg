@@ -11,7 +11,7 @@ using svelte_rpg_backend.Context;
 namespace svelte_rpg_backend.Migrations
 {
     [DbContext(typeof(RpgContext))]
-    [Migration("20230916212114_Initial")]
+    [Migration("20230916234800_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -85,7 +85,7 @@ namespace svelte_rpg_backend.Migrations
 
                     b.HasIndex("AttributeId");
 
-                    b.ToTable("MonsterAttributeSet");
+                    b.ToTable("ActorAttributeSet");
                 });
 
             modelBuilder.Entity("svelte_rpg_backend.Models.ActorStat", b =>
@@ -217,28 +217,6 @@ namespace svelte_rpg_backend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("EquipmentSlotSet");
-                });
-
-            modelBuilder.Entity("svelte_rpg_backend.Models.HeroAttribute", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<int>("AttributeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("HeroId")
-                        .HasColumnType("int");
-
-                    b.Property<double>("Value")
-                        .HasColumnType("double");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AttributeId");
-
-                    b.ToTable("HeroAttributeSet");
                 });
 
             modelBuilder.Entity("svelte_rpg_backend.Models.HeroEquipment", b =>
@@ -814,17 +792,6 @@ namespace svelte_rpg_backend.Migrations
                     b.Navigation("Monster");
                 });
 
-            modelBuilder.Entity("svelte_rpg_backend.Models.HeroAttribute", b =>
-                {
-                    b.HasOne("svelte_rpg_backend.Models.Attribute", "Attribute")
-                        .WithMany()
-                        .HasForeignKey("AttributeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Attribute");
-                });
-
             modelBuilder.Entity("svelte_rpg_backend.Models.HeroEquipment", b =>
                 {
                     b.HasOne("svelte_rpg_backend.Models.EquipmentSlot", "EquipmentSlot")
@@ -907,8 +874,8 @@ namespace svelte_rpg_backend.Migrations
 
             modelBuilder.Entity("svelte_rpg_backend.Models.ItemLoot", b =>
                 {
-                    b.HasOne("svelte_rpg_backend.Models.Item", null)
-                        .WithMany("ItemLoots")
+                    b.HasOne("svelte_rpg_backend.Models.Item", "Item")
+                        .WithMany()
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -918,6 +885,8 @@ namespace svelte_rpg_backend.Migrations
                         .HasForeignKey("LootId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Item");
                 });
 
             modelBuilder.Entity("svelte_rpg_backend.Models.ItemSlot", b =>
@@ -1099,8 +1068,6 @@ namespace svelte_rpg_backend.Migrations
             modelBuilder.Entity("svelte_rpg_backend.Models.Item", b =>
                 {
                     b.Navigation("ItemAttributes");
-
-                    b.Navigation("ItemLoots");
 
                     b.Navigation("ItemStats");
                 });

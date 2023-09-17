@@ -211,29 +211,7 @@ namespace svelte_rpg_backend.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "HeroAttributeSet",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    AttributeId = table.Column<int>(type: "int", nullable: false),
-                    HeroId = table.Column<int>(type: "int", nullable: false),
-                    Value = table.Column<double>(type: "double", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_HeroAttributeSet", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_HeroAttributeSet_AttributeSet_AttributeId",
-                        column: x => x.AttributeId,
-                        principalTable: "AttributeSet",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "MonsterAttributeSet",
+                name: "ActorAttributeSet",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -244,15 +222,15 @@ namespace svelte_rpg_backend.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_MonsterAttributeSet", x => x.Id);
+                    table.PrimaryKey("PK_ActorAttributeSet", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_MonsterAttributeSet_Actor_ActorId",
+                        name: "FK_ActorAttributeSet_Actor_ActorId",
                         column: x => x.ActorId,
                         principalTable: "Actor",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_MonsterAttributeSet_AttributeSet_AttributeId",
+                        name: "FK_ActorAttributeSet_AttributeSet_AttributeId",
                         column: x => x.AttributeId,
                         principalTable: "AttributeSet",
                         principalColumn: "Id",
@@ -777,6 +755,16 @@ namespace svelte_rpg_backend.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ActorAttributeSet_ActorId",
+                table: "ActorAttributeSet",
+                column: "ActorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ActorAttributeSet_AttributeId",
+                table: "ActorAttributeSet",
+                column: "AttributeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ActorStatSet_ActorId",
                 table: "ActorStatSet",
                 column: "ActorId");
@@ -810,11 +798,6 @@ namespace svelte_rpg_backend.Migrations
                 name: "IX_Hero_UserId",
                 table: "Hero",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_HeroAttributeSet_AttributeId",
-                table: "HeroAttributeSet",
-                column: "AttributeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_HeroEquipmentSet_EquipmentSlotId",
@@ -897,16 +880,6 @@ namespace svelte_rpg_backend.Migrations
                 column: "MonsterCatalogId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_MonsterAttributeSet_ActorId",
-                table: "MonsterAttributeSet",
-                column: "ActorId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_MonsterAttributeSet_AttributeId",
-                table: "MonsterAttributeSet",
-                column: "AttributeId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_MonsterLootSet_LootId",
                 table: "MonsterLootSet",
                 column: "LootId");
@@ -970,6 +943,9 @@ namespace svelte_rpg_backend.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "ActorAttributeSet");
+
+            migrationBuilder.DropTable(
                 name: "ActorStatSet");
 
             migrationBuilder.DropTable(
@@ -980,9 +956,6 @@ namespace svelte_rpg_backend.Migrations
 
             migrationBuilder.DropTable(
                 name: "ConfigSet");
-
-            migrationBuilder.DropTable(
-                name: "HeroAttributeSet");
 
             migrationBuilder.DropTable(
                 name: "HeroEquipmentSet");
@@ -998,9 +971,6 @@ namespace svelte_rpg_backend.Migrations
 
             migrationBuilder.DropTable(
                 name: "ItemStatSet");
-
-            migrationBuilder.DropTable(
-                name: "MonsterAttributeSet");
 
             migrationBuilder.DropTable(
                 name: "MonsterLootSet");

@@ -8,7 +8,7 @@ public class HeroResponseDto
     public int PerkPoints { get; set; }
     public int StatPoints { get; set; }
     public int Tier { get; set; }
-    public List<StatResponseDTO> StatList { get; set; }
-    public List<AttributeResponseDTO> AttributeList { get; set; }
+    public List<StatResponseDTO> Stats { get; set; }
+    public List<AttributeResponseDTO> Attributes { get; set; }
     public List<ItemSlot> ItemSlots { get; set; } // TODO: Criar DTO
 }
