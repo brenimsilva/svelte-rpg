@@ -16,11 +16,11 @@ builder.Services.AddSwaggerGen();
 string conString = builder.Configuration.GetConnectionString("SvelteRpgConnection");
 ServerVersion version = ServerVersion.AutoDetect(conString);
 builder.Services.AddDbContext<RpgContext>(opts => opts.UseMySql(conString, version));
-builder.Services.AddScoped<UserService, UserService>();
-builder.Services.AddScoped<HeroService, HeroService>();
-builder.Services.AddScoped<SystemService, SystemService>();
-builder.Services.AddScoped<MonsterService, MonsterService>();
-builder.Services.AddScoped<GameLogicService, GameLogicService>();
+builder.Services.AddTransient<UserService, UserService>();
+builder.Services.AddTransient<HeroService, HeroService>();
+builder.Services.AddTransient<SystemService, SystemService>();
+builder.Services.AddTransient<MonsterService, MonsterService>();
+builder.Services.AddTransient<GameLogicService, GameLogicService>();
 
 // APP
 var app = builder.Build();

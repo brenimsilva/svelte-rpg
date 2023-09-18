@@ -12,10 +12,12 @@ public class SystemService : ISystemService
 {
     private RpgContext _context;
     private MonsterService _monsterService;
-    public SystemService(RpgContext context, MonsterService monsterService)
+    private GameLogicService _gameLogicService;
+    public SystemService(RpgContext context, MonsterService monsterService, GameLogicService glService)
     {
         this._context = context;
         this._monsterService = monsterService;
+        this._gameLogicService = glService;
     }
 
     private List<Attribute> _StartAttributes()
@@ -90,8 +92,12 @@ public class SystemService : ISystemService
         };
         monsters.Add(Rat);
         await _context.MonsterCatalogSet.AddRangeAsync(monsters);
-        await GenerateStats(Rat.Id, 1, 1, 1, 5);
         await _context.SaveChangesAsync();
+        await GenerateStats(Rat.Id, 1, 1, 1, 5);
+        await GenerateAttributes(Rat.Id, 0, 0, 0, 0, 0, 0, 0);
+        await _context.SaveChangesAsync();
+        await _gameLogicService.UpdateActorAttributes(Rat);
+        
         return monsters;
     }
 
@@ -102,12 +108,31 @@ public class SystemService : ISystemService
         ActorStat DEX = new ActorStat(StatEnum.Dexterity, actorId, dex);
         ActorStat AGI = new ActorStat(StatEnum.Agility, actorId, agi);
         ActorStat VIT = new ActorStat(StatEnum.Vitality, actorId, vit);
-        statList.Add(STR);
-        statList.Add(DEX);
-        statList.Add(AGI);
-        statList.Add(VIT);
-        await _context.AddRangeAsync(statList);
+        statList.AddRange(new []
+        {
+            STR,DEX,AGI,VIT
+        });
+        await _context.ActorStatSet.AddRangeAsync(statList);
         return statList;
+    }
+
+    public async Task<List<ActorAttribute>> GenerateAttributes(int actorId, double mhp, double hp, double atk, double def, double evs, double crtc, double crtd)
+    {
+        List<ActorAttribute> actorAttributes = new List<ActorAttribute>();
+        ActorAttribute MHP = new ActorAttribute(AttributeEnum.MaxHealthPoints, actorId, mhp);
+        ActorAttribute HP = new ActorAttribute(AttributeEnum.HealthPoints, actorId, hp);
+        ActorAttribute ATK = new ActorAttribute(AttributeEnum.Attack, actorId, atk);
+        ActorAttribute DEF = new ActorAttribute(AttributeEnum.Defense, actorId, def);
+        ActorAttribute EVS = new ActorAttribute(AttributeEnum.Evasion, actorId, evs);
+        ActorAttribute CRTC = new ActorAttribute(AttributeEnum.CritChance, actorId, crtc);
+        ActorAttribute CRTD = new ActorAttribute(AttributeEnum.CritDamage, actorId, crtd);
+        actorAttributes.AddRange(new []
+        {
+            MHP,HP, ATK, DEF, CRTD, CRTC, EVS
+        });
+        await _context.ActorAttributeSet.AddRangeAsync(actorAttributes);
+        return actorAttributes;
+
     }
 
     private List<UserType> _startUserTypes()

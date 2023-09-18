@@ -3,7 +3,6 @@
 	import Stats from "../../components/Stats.svelte";
     import {playerMonsterW, battleLogW} from "../../stores/Store"
     export let data;
-    $: ( { product, users } = data ) 
     const x = crypto.randomUUID()
 </script>
 

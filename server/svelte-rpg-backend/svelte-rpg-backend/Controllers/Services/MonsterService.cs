@@ -10,6 +10,7 @@ public class MonsterService : IMonsterService
 {
     private RpgContext _context;
     private GameLogicService _gameLogicService;
+    private SystemService _systemService;
     public MonsterService(RpgContext context, GameLogicService _glService)
     {
         this._context = context;
@@ -23,18 +24,32 @@ public class MonsterService : IMonsterService
     public async Task<Monster> MonsterSpawn(MonsterEnum monsterId, int tier)
     {
         //Faz a busca no banco do monstro pelo id do enum
-        MonsterCatalog catalogedMonster = await _context.MonsterCatalogSet.Include(e => e.Attributes)
+        MonsterCatalog catalogedMonster = await _context.MonsterCatalogSet
+            .Include(e => e.Attributes)
             .Include(e => e.Stats)
             .Include(e => e.MonsterLoots)
             .FirstOrDefaultAsync(x => x.Id == (int)monsterId);
-        //Spawna novo monster
-        Monster monster = new Monster();
-        
-        monster.Name = catalogedMonster.Name;
-        //Faz o calculo dos stats pelo tier
-        //Faz o calculo dos attributes pelo stats
+        Monster monster = new Monster()
+        {
+            Id = 0,
+            Name = catalogedMonster.Name,
+            created_at = DateTime.Now,
+            updated_at = DateTime.Now,
+            MonsterCatalogId = catalogedMonster.Id,
+            Tier = tier,
+            Level = catalogedMonster.Level,
+        };
+        await _context.MonsterSet.AddAsync(monster);
+        await _context.SaveChangesAsync();
+        await _systemService.GenerateStats(monster.Id, 1,1,1,5);
+        await _systemService.GenerateAttributes(monster.Id, 0, 0, 0, 0, 0, 0, 0);
+        await _gameLogicService.UpdateActorAttributes(monster);
         //Faz o calculo do dropchance dos loots pelo tier
-        //
         return monster;
+    }
+
+    public async Task<Monster> GetById(int id)
+    {
+        return await _context.MonsterSet.FindAsync(id);
     }
 }

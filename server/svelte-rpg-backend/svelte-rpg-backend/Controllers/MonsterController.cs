@@ -16,10 +16,17 @@ public class MonsterController : ControllerBase
         this._monsterService = service;
     }
     
-    [HttpGet]
-    public async Task<ActionResult<Monster>> MonsterSpawn()
+    [HttpPost]
+    public async Task<ActionResult<Monster>> MonsterSpawn([FromForm] int tier)
     {
-        Monster m = await _monsterService.MonsterSpawn(MonsterEnum.Rat, 1);
+        Monster m = await _monsterService.MonsterSpawn(MonsterEnum.Rat, tier);
+        return CreatedAtAction(nameof(GetById), new {id = m.Id}, m);
+    }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetById(int id)
+    {
+        Monster m = await _monsterService.GetById(id);
         return Ok(m);
     }
 }

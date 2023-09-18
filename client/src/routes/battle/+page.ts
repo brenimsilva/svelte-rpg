@@ -18,19 +18,26 @@
     playerMonsterW.set({player,monster});
 
     export const load = async({fetch}) => {
-        async function fetchProducts() {
-            const res = await fetch("http://localhost:5173/api/hero?skip=20&take=5", {headers: {Authorization: "15051993"}});
+        // async function fetchProducts() {
+        //     const res = await fetch("http://localhost:5173/api/hero?skip=20&take=5", {headers: {Authorization: "15051993"}});
+        //     const data = await res.json();
+        //     return data;
+        // }
+
+        // async function fetchUsers() {
+        //     const res2 = await fetch("http://localhost:5173/api/hero/13", });
+        //     const data2 = await res2.json();
+        //     return data2;
+        // }
+        async function fetchHeroes() {
+            const res = await fetch("http://localhost:5174/api/hero", {headers: {Authorization: "15051993"}});
             const data = await res.json();
+            console.log(data);
             return data;
         }
-
-        async function fetchUsers() {
-            const res2 = await fetch("http://localhost:5173/api/hero/13", {headers: {Authorization: "15051993"}});
-            const data2 = await res2.json();
-            return data2;
-        }
         return {
-            product: fetchProducts(),
-            users: fetchUsers()
+            // product: fetchProducts(),
+            // users: fetchUsers()
+            heroes: fetchHeroes()
         }
     }

@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using svelte_rpg_backend.Models;
 using svelte_rpg_backend.Models.DTO;
+using svelte_rpg_backend.Models.DTO.Response;
 using svelte_rpg_backend.Services;
 
 namespace svelte_rpg_backend.Controllers;
@@ -36,12 +37,8 @@ public class HeroController : ControllerBase
     {
         try
         {
-            Hero hero = await _service.Create(heroDto);
-            if (hero != null)
-            {
-                return CreatedAtAction(nameof(GetById), new { heroId = hero.Id }, hero);
-            }
-            return StatusCode(500);
+            Hero hero = await _service.Create(heroDto); 
+            return CreatedAtAction(nameof(GetById), new { heroId = hero.Id }, hero);
         }
         catch(Exception e)
         {

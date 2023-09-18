@@ -22,7 +22,7 @@ public class Hero : Actor
         
     }
 
-    public Hero(HeroDTO dto, RpgContext _context)
+    public Hero(HeroDTO dto)
     {
         this.created_at = DateTime.Now;
         this.updated_at = DateTime.Now;

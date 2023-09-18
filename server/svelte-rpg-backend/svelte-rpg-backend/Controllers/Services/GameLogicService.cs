@@ -14,21 +14,36 @@ public class GameLogicService : IGameLogicService
     {
         this._context = context;
     }
-    public async Task<List<ActorAttribute>> CalcAttributes(Actor actor)
+    private async Task<ICollection<ActorAttribute>> _CalcAttributes(Actor actor)
     {
-        List<ActorAttribute> attributeList = new List<ActorAttribute>();
-        
+        Dictionary<AttributeEnum, double> attributeDictionary = new Dictionary<AttributeEnum, double>()
+        {
+            {AttributeEnum.Attack,0}, {AttributeEnum.Defense,0}, {AttributeEnum.Evasion,0},
+            {AttributeEnum.CritChance,0}, {AttributeEnum.CritDamage,0}, {AttributeEnum.HealthPoints,0},
+            {AttributeEnum.MaxHealthPoints,0}
+        };
         foreach (var stat in actor.Stats)
         {
-            AttributeStatsRatio ratio = await _context.AttributeStatRatio.Include(e => e.Attributes)
-                .Include(e => e.Stats).FirstOrDefaultAsync(e => e.StatId == stat.StatId);
-            
-            double value = (stat.Value * actor.Tier) * ratio.Ratio;
-            ActorAttribute actorAttribute = new ActorAttribute((AttributeEnum)ratio.AttributeId, actor.Id, value);
-            attributeList.Add(actorAttribute);
+            IEnumerable<AttributeStatsRatio> listRatioPerStat = _context.AttributeStatRatio.Where(e => e.StatId == stat.StatId);
+            foreach (var statRatio in listRatioPerStat)
+            {
+                double value = (stat.Value * actor.Tier) * statRatio.Ratio;
+                attributeDictionary[(AttributeEnum)statRatio.AttributeId] += value;
+            }
+        }
+        foreach (var attribute in actor.Attributes)
+        {
+            attribute.Value = attributeDictionary[(AttributeEnum)attribute.AttributeId];
         }
         
-        return attributeList;
+        return actor.Attributes;
+    }
+    public async Task<ICollection<ActorAttribute>> UpdateActorAttributes(Actor actor)
+    {
+        ICollection<ActorAttribute> actorAttributes = await _CalcAttributes(actor);
+        await _context.ActorAttributeSet.AddRangeAsync(actorAttributes);
+        await _context.SaveChangesAsync();
+        return actorAttributes;
     }
 
 }

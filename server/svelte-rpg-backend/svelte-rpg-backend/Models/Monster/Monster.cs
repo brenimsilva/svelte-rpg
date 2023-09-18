@@ -9,7 +9,6 @@ namespace svelte_rpg_backend.Models;
 public class Monster : Actor
 {
     [Key] public int Id { get; set; }
-    public string Name { get; set; }
     public int MonsterCatalogId { get; set; }
     public virtual MonsterCatalog MonsterCatalog { get; set; } 
     public int Level { get; set; }
@@ -18,5 +17,13 @@ public class Monster : Actor
 
     public Monster()
     {
+    }
+
+    public Monster(MonsterCatalog mc, int tier)
+    {
+        this.MonsterCatalogId = mc.Id;
+        this.Level = mc.Level;
+        this.Name = mc.Name;
+        this.Tier = tier;
     }
 }
