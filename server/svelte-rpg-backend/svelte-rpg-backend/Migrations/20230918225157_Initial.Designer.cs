@@ -11,7 +11,7 @@ using svelte_rpg_backend.Context;
 namespace svelte_rpg_backend.Migrations
 {
     [DbContext(typeof(RpgContext))]
-    [Migration("20230917180924_Initial")]
+    [Migration("20230918225157_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

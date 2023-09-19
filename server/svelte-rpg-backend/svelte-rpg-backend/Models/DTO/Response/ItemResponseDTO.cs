@@ -7,9 +7,9 @@ public class ItemResponseDTO
     
     public string ItemName { get; set; }
     public string Description { get; set; }
-    public ItemType ItemType { get; set; } // TODO: CRIAR DTO
-    public Rarity Rarity { get; set; } // TODO: CRIAR DTO
-    public ActionText ActionText { get; set; } // TODO: CRIAR DTO
+    public ItemTypeResponseDTO ItemTypeResponse { get; set; } 
+    public RarityResponseDTO Rarity { get; set; }  
+    public ActionTextResponseDTO ActionTextResponse { get; set; } 
     public List<AttributeResponseDTO> ItemAttributes { get; set; }
     public virtual List<StatResponseDTO> ItemStats { get; set; }
     public int ItemLevel { get; set; } // +1, +2, +3, ... +13

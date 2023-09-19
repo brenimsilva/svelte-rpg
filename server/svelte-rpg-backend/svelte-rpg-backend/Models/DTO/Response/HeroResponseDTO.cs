@@ -10,5 +10,5 @@ public class HeroResponseDto
     public int Tier { get; set; }
     public Dictionary<string, StatResponseDTO> Stats { get; set; }
     public Dictionary<string, AttributeResponseDTO> Attributes { get; set; }
-    public List<ItemSlot> ItemSlots { get; set; } // TODO: Criar DTO
+    public List<ItemSlotResponseDTO> ItemSlots { get; set; } 
 }
