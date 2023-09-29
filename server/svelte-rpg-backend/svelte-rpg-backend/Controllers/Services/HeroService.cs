@@ -31,8 +31,8 @@ public class HeroService : IHeroService
             .ThenInclude(e => e.Stat)
             .Include(e => e.Attributes)
             .ThenInclude(e => e.Attribute)
-                                     .FirstOrDefaultAsync(e => e.Id == heroId);
-        IEnumerable<ItemSlot> itemSlotList = _context.ItemSlotSet.Where(e => e.HeroId == hero.Id).Include();
+            .FirstOrDefaultAsync(e => e.Id == heroId);
+        IEnumerable<ItemSlot> itemSlotList = _context.ItemSlotSet.Where(e => e.HeroId == hero.Id).Include(e => e.Item);
         List<StatResponseDTO> statList = new();
         List<AttributeResponseDTO> attributeList = new();
         
@@ -43,35 +43,41 @@ public class HeroService : IHeroService
         List<ItemSlotResponseDTO> listItemSlotResponse = new();
         foreach (var item in hero.ItemSlots)
         {
-            
-            ItemResponseDTO itemResponseDto = new()
+            if (item.Item != null)
             {
-                Description = item.Item.ItemCatalog.Description,
-                ItemLevel = item.Item.ItemLevel,
-                ItemName = item.Item.ItemCatalog.Name,
-                Rarity = new RarityResponseDTO()
+                ItemResponseDTO itemResponseDto = new()
                 {
-                    Description = item.Item.ItemCatalog.Rarity.Description,
-                    Name = item.Item.ItemCatalog.Rarity.Name,
-                    Color = item.Item.ItemCatalog.Rarity.Color
-                },
-                ActionTextResponse = new ActionTextResponseDTO()
+                    Description = item.Item.ItemCatalog.Description,
+                    ItemLevel = item.Item.ItemLevel,
+                    ItemName = item.Item.ItemCatalog.Name,
+                    Rarity = new RarityResponseDTO()
+                    {
+                        Description = item.Item.ItemCatalog.Rarity.Description,
+                        Name = item.Item.ItemCatalog.Rarity.Name,
+                        Color = item.Item.ItemCatalog.Rarity.Color
+                    },
+                    ActionTextResponse = new ActionTextResponseDTO()
+                    {
+                        ActionName = item.Item.ItemCatalog.Name
+                    },
+                    ItemTypeResponse = new ItemTypeResponseDTO()
+                    {
+                        Name = item.Item.ItemCatalog.ItemType.Name,
+                        Description = item.Item.ItemCatalog.ItemType.Description
+                    },
+                    ItemAttributes = new(), //TODO
+                    ItemStats = new() // TODO
+                };
+                ItemSlotResponseDTO itemSlotResponseDto = new()
                 {
-                    ActionName = item.Item.ItemCatalog.Name
-                },
-                ItemTypeResponse = new ItemTypeResponseDTO()
-                {
-                    Name = item.Item.ItemCatalog.ItemType.Name,
-                    Description = item.Item.ItemCatalog.ItemType.Description
-                },
-                ItemAttributes = new(), //TODO
-                ItemStats = new() // TODO
-            };
-            ItemSlotResponseDTO itemSlotResponseDto = new()
+                    Item = itemResponseDto
+                };
+                listItemSlotResponse.Add(itemSlotResponseDto);
+            }
+            else
             {
-                Item = itemResponseDto
-            };
-            listItemSlotResponse.Add(itemSlotResponseDto);
+                listItemSlotResponse.Add(new ItemSlotResponseDTO());
+            }
         }
         HeroResponseDto heroResponse = new HeroResponseDto()
         {
@@ -85,11 +91,6 @@ public class HeroService : IHeroService
             Stats = statDictionary,
             StatPoints = hero.StatPoints
         };
-        Dictionary<string, AttributeResponseDTO> attributesDict = new Dictionary<string, AttributeResponseDTO>();
-        foreach (var attribute in attributeList)
-        {
-            attributesDict[attribute.ShortName] = attribute;
-        }
 
         return heroResponse;
     }
