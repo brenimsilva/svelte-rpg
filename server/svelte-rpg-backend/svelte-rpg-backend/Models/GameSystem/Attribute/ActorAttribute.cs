@@ -7,8 +7,8 @@ namespace svelte_rpg_backend.Models;
 
 public class ActorAttribute
 {
-   [Key] public int Id { get; set; }
-   [ForeignKey("Attribute")] public int AttributeId { get; set; }
+   [Key] public int ActorAttributeId { get; set; }
+   [ForeignKey("Attribute")] public AttributeEnum AttributeId { get; set; }
    public virtual Attribute Attribute { get; set; }
    [ForeignKey("Actor")] public int ActorId { get; set; }
    [Required]public double Value { get; set; }
@@ -17,15 +17,15 @@ public class ActorAttribute
 
    public ActorAttribute(AttributeEnum attr, int actorId, double value)
    {
-      this.Id = 0;
-      this.AttributeId = (int)attr;
+      this.ActorAttributeId = 0;
+      this.AttributeId = attr;
       this.ActorId = actorId;
       this.Value = value;
    }
    public ActorAttribute(AttributeEnum attr, double value)
    {
-      this.Id = 0;
-      this.AttributeId = (int)attr;
+      this.ActorAttributeId = 0;
+      this.AttributeId = attr;
       this.Value = value;
    }
 }

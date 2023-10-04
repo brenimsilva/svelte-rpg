@@ -17,7 +17,7 @@ public class UserService
 
    public async Task<User> GetByUsername(string username)
    {
-       var user = await _context.UserSet.Include(i => i.Heroes).ThenInclude(e => e.ItemSlots)
+       var user = await _context.User.Include(i => i.Heroes).ThenInclude(e => e.ItemSlots)
                         .FirstOrDefaultAsync(x => x.UserName == username);
        return user;
    }
@@ -35,14 +35,14 @@ public class UserService
                 Password = hash,
                 UserTypeId = 1,
             };
-            _context.UserSet.Add(createdUser);
+            _context.User.Add(createdUser);
             await _context.SaveChangesAsync();
             return createdUser;
    }
 
    public async Task<User> UpdateUser(string username, JsonPatchDocument<User> userPatch)
    {
-       var user = await _context.UserSet.FindAsync(username);
+       var user = await _context.User.FindAsync(username);
        if (user != null)
        {
            userPatch.ApplyTo(user);

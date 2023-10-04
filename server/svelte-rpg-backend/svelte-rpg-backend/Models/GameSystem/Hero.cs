@@ -26,7 +26,7 @@ public class Hero : Actor
     {
         this.created_at = DateTime.Now;
         this.updated_at = DateTime.Now;
-        this.Id = 0;
+        this.ActorId = 0;
         this.UserId = dto.UserId;
         this.Level = dto.Level;
         this.Exp = dto.Exp;

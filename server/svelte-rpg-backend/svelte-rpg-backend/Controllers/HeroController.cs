@@ -38,7 +38,7 @@ public class HeroController : ControllerBase
         try
         {
             Hero hero = await _service.Create(heroDto); 
-            return CreatedAtAction(nameof(GetById), new { heroId = hero.Id }, hero);
+            return CreatedAtAction(nameof(GetById), new { heroId = hero.ActorId }, hero);
         }
         catch(Exception e)
         {

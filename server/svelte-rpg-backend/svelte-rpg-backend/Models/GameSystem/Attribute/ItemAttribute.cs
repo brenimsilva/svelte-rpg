@@ -1,13 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using svelte_rpg_backend.Models.Enums;
 
 namespace svelte_rpg_backend.Models;
 
 public class ItemAttribute
 {
-   [Key] public int Id { get; set; }
-   [ForeignKey("Attribute")] public int AttributeId { get; set; }
+   [Key] public int ItemAttributeId { get; set; }
+   [ForeignKey("Attribute")] public AttributeEnum AttributeId { get; set; }
    public virtual Attribute Attribute { get; set; }
-   [ForeignKey("Item")] public int ItemId { get; set; }
+   [ForeignKey("Item")] public ItemEnum ItemId { get; set; }
    [Required]public double Value { get; set; }
 }

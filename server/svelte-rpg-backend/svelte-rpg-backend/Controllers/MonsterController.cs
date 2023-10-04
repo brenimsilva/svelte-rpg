@@ -20,7 +20,7 @@ public class MonsterController : ControllerBase
     public async Task<ActionResult<Monster>> MonsterSpawn([FromForm] int tier)
     {
         Monster m = await _monsterService.MonsterSpawn(MonsterEnum.Rat, tier);
-        return CreatedAtAction(nameof(GetById), new {id = m.Id}, m);
+        return CreatedAtAction(nameof(GetById), new {id = m.ActorId}, m);
     }
 
     [HttpGet("{id}")]

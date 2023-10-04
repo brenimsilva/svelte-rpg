@@ -1,4 +1,7 @@
-<script>
+<body>
+    <slot />
+</body>
+<!-- <script>
 	import Actions from "../components/Actions.svelte";
 	import Routes from "../components/Routes.svelte";
     import "./style.css"
@@ -123,4 +126,4 @@
         width: 100vw;
         overflow: hidden;
     }
-</style>
+</style> -->
