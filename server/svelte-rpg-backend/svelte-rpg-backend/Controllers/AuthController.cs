@@ -12,23 +12,21 @@ namespace svelte_rpg_backend.Controllers;
 
 public class AuthController : ControllerBase
 {
-    RpgContext _ctx;
+    private AuthService _service;
     
-    public AuthController(RpgContext ctx) {
-        this._ctx = ctx;
+    public AuthController(AuthService service) {
+        this._service = service;
     }
 
-    [HttpPost]
-    public async Task<IActionResult> LogIn([FromForm] string usuario, [FromForm] string senha)
-    {
-        string senhaCrypto = Util.StringUtilities.Hash(senha);
-        User u = await _ctx.User.FirstOrDefaultAsync(e => e.UserName == usuario && e.Password == senhaCrypto);
-
-        if(u == null) {
-            return BadRequest();
-        }
-
-        return Ok(u);
-        
-    }
+    // [HttpPost]
+    // public async Task<IActionResult> LogIn([FromForm] string usuario, [FromForm] string senha)
+    // {
+    //     try {
+    //         var u = await _service.LogIn(usuario, senha);
+    //
+    //         return Ok(u);
+    //     } catch(Exception ex) {
+    //         return Unauthorized("Incorret User or Password"); 
+    //     }
+    // }
 }

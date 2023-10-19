@@ -11,10 +11,11 @@ public class MonsterService : IMonsterService
     private RpgContext _context;
     private GameLogicService _gameLogicService;
     private SystemService _systemService;
-    public MonsterService(RpgContext context, GameLogicService _glService)
+    public MonsterService(RpgContext context, SystemService systemService, GameLogicService gameLogicService)
     {
         this._context = context;
-        this._gameLogicService = _glService;
+        this._systemService = systemService;
+        this._gameLogicService = gameLogicService;
     }
 
     public async Task<ActorStat> GetStatById(int Id)
@@ -38,6 +39,7 @@ public class MonsterService : IMonsterService
             MonsterCatalogId = catalogedMonster.MonsterCatalogId,
             Tier = tier,
             Level = catalogedMonster.Level,
+            
         };
         await _context.Monster.AddAsync(monster);
         await _context.SaveChangesAsync();

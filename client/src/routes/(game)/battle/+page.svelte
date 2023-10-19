@@ -1,7 +1,7 @@
 <script lang="ts">
-	import BattleLog from "../../components/BattleLog.svelte";
-	import Stats from "../../components/Stats.svelte";
-    import {playerMonsterW, battleLogW} from "../../stores/Store"
+ import BattleLog from "../../../components/BattleLog.svelte";
+    import Stats from "../../../components/Stats.svelte";
+    import {playerMonsterW, battleLogW} from "../../../stores/Store"
     export let data;
     const x = crypto.randomUUID()
 </script>

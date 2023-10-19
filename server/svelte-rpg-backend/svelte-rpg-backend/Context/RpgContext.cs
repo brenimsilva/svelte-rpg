@@ -1,8 +1,5 @@
-using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using svelte_rpg_backend.Models;
-using svelte_rpg_backend.Models;
-using svelte_rpg_backend.Models.DTO.Response;
 using Attribute = svelte_rpg_backend.Models.Attribute;
 
 namespace svelte_rpg_backend.Context;
@@ -28,6 +25,7 @@ public class RpgContext: DbContext
     public DbSet<AttributeStatsRatio> AttributeStatRatio { get; set; }
     public DbSet<ItemAttribute> ItemAttributeSet { get; set; }
     public DbSet<ActorAttribute> ActorAttribute { get; set; }
+    public DbSet<MonsterAttribute> MonsterAttribute { get; set; }
     public DbSet<PerkAttribute> PerkAttribute { get; set; }
     
     //BackPack
@@ -49,6 +47,7 @@ public class RpgContext: DbContext
     //Stat
     public DbSet<ItemStat> ItemStat { get; set; }
     public DbSet<ActorStat> ActorStat { get; set; }
+    public DbSet<MonsterStat> MonsterStat { get; set; }
     public DbSet<PerkStat> PerkStat { get; set; }
     public DbSet<Stat> Stat { get; set; }
     
@@ -67,6 +66,6 @@ public class RpgContext: DbContext
     
     //System
     public DbSet<Config> Config { get; set; }
-    public DbSet<User> User { get; set; }
     public DbSet<UserType> UserType { get; set; }
+    public DbSet<UserUserType> UserUserType { get; set; }
 }

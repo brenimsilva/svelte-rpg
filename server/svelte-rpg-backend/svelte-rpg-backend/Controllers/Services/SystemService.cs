@@ -11,13 +11,9 @@ namespace svelte_rpg_backend.Services;
 public class SystemService : ISystemService
 {
     private RpgContext _context;
-    private MonsterService _monsterService;
-    private GameLogicService _gameLogicService;
-    public SystemService(RpgContext context, MonsterService monsterService, GameLogicService glService)
+    public SystemService(RpgContext context)
     {
         this._context = context;
-        this._monsterService = monsterService;
-        this._gameLogicService = glService;
     }
 
     private List<Attribute> _StartAttributes()
@@ -82,24 +78,6 @@ public class SystemService : ISystemService
         return skillTypes;
     }
 
-    // private async Task<List<MonsterCatalog>> _startMonsters()
-    // {
-    //     List<MonsterCatalog> monsters = new List<MonsterCatalog>();
-    //     MonsterCatalog Rat = new MonsterCatalog()
-    //     {
-    //         MonsterCatalogId = MonsterEnum.Rat, Name = "Rat",
-    //         created_at = DateTime.Now, updated_at = DateTime.Now, Level = 1, Tier = 1
-    //     };
-    //     monsters.Add(Rat);
-    //     await _context.MonsterCatalog.AddRangeAsync(monsters);
-    //     await _context.SaveChangesAsync();
-    //     await GenerateStats((int)Rat.MonsterCatalogId, 1, 1, 1, 5);
-    //     await GenerateAttributes((int)Rat.MonsterCatalogId, 0, 0, 0, 0, 0, 0, 0);
-    //     await _context.SaveChangesAsync();
-    //     await _gameLogicService.UpdateActorAttributes(Rat);
-    //     
-    //     return monsters;
-    // }
 
     public async Task<List<ActorStat>> GenerateStats(int actorId, int str, int dex, int agi, int vit)
     {
@@ -132,7 +110,6 @@ public class SystemService : ISystemService
         });
         await _context.ActorAttribute.AddRangeAsync(actorAttributes);
         return actorAttributes;
-
     }
 
     private List<UserType> _startUserTypes()
@@ -142,7 +119,7 @@ public class SystemService : ISystemService
         {
             userTypes.Add(new UserType()
             {
-                Id = (int)enumValue,
+                Id = enumValue,
                 Name = StringUtilities.PascalToWord(enumValue.ToString())
             });
         } 
@@ -161,7 +138,6 @@ public class SystemService : ISystemService
         } 
         return equipmentSlots;
     }
-
 
     public async Task<bool> DataBaseInit()
     {

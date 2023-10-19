@@ -1,17 +1,9 @@
 <script lang="ts">
-let passwordInput: string = '';
-let usernameInput: string = '';
+let passwordInput = '';
+let usernameInput = '';
 
 $: console.log(passwordInput);
 
-// function handleUsername(event: InputEvent) {
-//     const inputElement = event.target;
-//     usernameInput = inputElement.value;
-// }
-// function handlePassword(event: InputEvent) {
-//     const inputElement = event.target;
-//     passwordInput = inputElement.value;
-// }
 </script>
 
 <div>

@@ -1,6 +1,6 @@
-	import Player, { type IAttributes, type ILevelSystem, type ISprite, type IStats } from "../../classes/Player";
-    import {battleW, playerMonsterW} from "../../stores/Store"
-	import Battle from "../../classes/Battle";
+	import Player, { type IAttributes, type ILevelSystem, type ISprite, type IStats } from "../../../classes/Player";
+    import {battleW, playerMonsterW} from "../../../stores/Store"
+	import Battle from "../../../classes/Battle";
 
     const p_stats: IStats = {atk: 1, def: 0, hp: 10, max_hp: 10, evs: 0, crtc: 0, crtd: 0};
     const p_attributes: IAttributes = {agi: 0, dex: 0, vit: 0, str: 0};

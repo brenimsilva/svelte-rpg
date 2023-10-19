@@ -17,48 +17,48 @@ public class UserController : ControllerBase
         _service = service;
     }
 
-    [HttpGet("{username}")]
-    public async Task<IActionResult> GetByUsername(string username)
-    {
-        try
-        {
-            var user =  await _service.GetByUsername(username);
-            if (user != null)
-            {
-                return Ok(user);
-            }
-            return NoContent();
-        } 
-        catch (Exception e)
-        {
-            return StatusCode(500, $"UserController/GetByUsername => {e.Message}");
-        }
-    }
-    [HttpPost]
-    public async Task<IActionResult> Add([FromForm] UserDTO user)
-    {
-        try
-        {
-            User createdUser = await _service.Add(user);
-            return CreatedAtAction(nameof(GetByUsername), new { username = createdUser.UserName }, createdUser);
-        }
-        catch(Exception e)
-        {
-            return StatusCode(500, $"UserController/Add => {e.Message}");
-        }
-    }
+    // [HttpGet]
+    // public async Task<IActionResult> GetByGuid([FromQuery]Guid guid)
+    // {
+    //     try
+    //     {
+    //         var user =  await _service.GetByGuid(guid);
+    //         if (user != null)
+    //         {
+    //             return Ok(user);
+    //         }
+    //         return NoContent();
+    //     } 
+    //     catch (Exception e)
+    //     {
+    //         return StatusCode(500, $"UserController/GetByUsername => {e.Message}");
+    //     }
+    // }
+    // [HttpPost]
+    // public async Task<IActionResult> Add([FromForm] UserDTO user)
+    // {
+    //     try
+    //     {
+    //         User createdUser = await _service.Add(user);
+    //         return CreatedAtAction(nameof(GetByGuid), new { guid = createdUser.UserGuid }, createdUser);
+    //     }
+    //     catch(Exception e)
+    //     {
+    //         return StatusCode(500, $"UserController/Add => {e.Message}");
+    //     }
+    // }
 
-    [HttpPatch("{username}")]
-    public async Task<IActionResult> UpdateUser(string username, [FromBody] JsonPatchDocument<User> userPatch)
-    {
-        try
-        {
-            User user = await _service.UpdateUser(username, userPatch);
-            return CreatedAtAction(nameof(GetByUsername), new { username = username }, user);
-        }
-        catch (Exception e)
-        {
-            return BadRequest();
-        }
-    }
+    // [HttpPatch("{username}")]
+    // public async Task<IActionResult> UpdateUser(string username, [FromBody] JsonPatchDocument<User> userPatch)
+    // {
+    //     try
+    //     {
+    //         User user = await _service.UpdateUser(username, userPatch);
+    //         return CreatedAtAction(nameof(GetByGuid), new { username = username }, user);
+    //     }
+    //     catch (Exception e)
+    //     {
+    //         return BadRequest();
+    //     }
+    // }
 }
