@@ -74,3 +74,10 @@ npm run dev -- --open
 - Damage Calc = P_ATK - (M_DEF * P_ATK) / 100
 
 
+```
+INSERT INTO `svelte-rpg`.MonsterCatalog
+values
+(1, 'Rat', 1, NOW(), NOW()),
+(2, 'Goblin', 2, NOW(), NOW())
+
+```

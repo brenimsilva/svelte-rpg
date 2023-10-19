@@ -8,7 +8,7 @@ namespace svelte_rpg_backend.Models;
 
 public class Hero : Actor
 {
-    [ForeignKey("User")] public int UserId { get; set; }
+    public Guid UserGuid { get; set; }
     public IEnumerable<ItemSlot> ItemSlots { get; set; }
     public IEnumerable<Skill> Skills { get; set; }
     public IEnumerable<HeroEquipment> HeroEquipments { get; set; }
@@ -26,8 +26,8 @@ public class Hero : Actor
     {
         this.created_at = DateTime.Now;
         this.updated_at = DateTime.Now;
-        this.Id = 0;
-        this.UserId = dto.UserId;
+        this.ActorId = 0;
+        this.UserGuid = dto.UserGuid;
         this.Level = dto.Level;
         this.Exp = dto.Exp;
         this.Name = dto.HeroName;
