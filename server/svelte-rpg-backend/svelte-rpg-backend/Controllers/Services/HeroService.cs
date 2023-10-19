@@ -22,7 +22,7 @@ public class HeroService : IHeroService
 
     public async Task<HeroResponseDto> GetById(int heroId)
     {
-        var hero = await _context.HeroSet
+        var hero = await _context.Hero
             .Include(e => e.ItemSlots)
             .ThenInclude(e => e.Item)
             .ThenInclude(e => e.ItemCatalog)
@@ -31,8 +31,8 @@ public class HeroService : IHeroService
             .ThenInclude(e => e.Stat)
             .Include(e => e.Attributes)
             .ThenInclude(e => e.Attribute)
-            .FirstOrDefaultAsync(e => e.Id == heroId);
-        IEnumerable<ItemSlot> itemSlotList = _context.ItemSlotSet.Where(e => e.HeroId == hero.Id).Include(e => e.Item);
+            .FirstOrDefaultAsync(e => e.ActorId == heroId);
+        IEnumerable<ItemSlot> itemSlotList = _context.ItemSlotSet.Where(e => e.HeroId == hero.ActorId).Include(e => e.Item);
         List<StatResponseDTO> statList = new();
         List<AttributeResponseDTO> attributeList = new();
         
@@ -99,14 +99,14 @@ public class HeroService : IHeroService
     public async Task<Hero> Create(HeroDTO heroDto)
     {
         Hero hero = new Hero(heroDto);
-        await _context.HeroSet.AddAsync(hero);
+        await _context.Hero.AddAsync(hero);
         await _context.SaveChangesAsync();
         for (int i = 0; i < 20; i++)
         {
-            ItemSlot itemSlot = new ItemSlot(hero.Id, _context);
+            ItemSlot itemSlot = new ItemSlot(hero.ActorId, _context);
         }
-        await _systemService.GenerateStats(hero.Id, 5,5,5,10);
-        await _systemService.GenerateAttributes(hero.Id, 0,0,0,0,0,0,0);
+        await _systemService.GenerateStats(hero.ActorId, 5,5,5,10);
+        await _systemService.GenerateAttributes(hero.ActorId, 0,0,0,0,0,0,0);
         await _gameLogicService.UpdateActorAttributes(hero);
         await _context.SaveChangesAsync();
 
@@ -115,7 +115,7 @@ public class HeroService : IHeroService
 
     public async Task<Hero> UpdateHero(int heroId, JsonPatchDocument<Hero> heroPatch)
     {
-        Hero hero = await _context.HeroSet.FindAsync(heroId);
+        Hero hero = await _context.Hero.FindAsync(heroId);
         if (hero != null)
         {
             heroPatch.ApplyTo(hero);
@@ -126,8 +126,8 @@ public class HeroService : IHeroService
 
     public async Task<int> Delete(int Id)
     {
-        Hero hero = await _context.HeroSet.FindAsync(Id);
-        _context.HeroSet.Remove(hero);
+        Hero hero = await _context.Hero.FindAsync(Id);
+        _context.Hero.Remove(hero);
         await _context.SaveChangesAsync();
         return Id;
     }

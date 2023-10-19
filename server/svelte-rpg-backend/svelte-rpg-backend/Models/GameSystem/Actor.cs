@@ -4,7 +4,7 @@ namespace svelte_rpg_backend.Models;
 
 public class Actor
 {
-    [Key] public int Id { get; set; }
+    [Key] public int ActorId { get; set; }
     public string Name { get; set; }
     public int Level { get; set; }
     public int Tier { get; set; }

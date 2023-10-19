@@ -1,8 +1,5 @@
-using System.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using svelte_rpg_backend.Models;
-using svelte_rpg_backend.Models;
-using svelte_rpg_backend.Models.DTO.Response;
 using Attribute = svelte_rpg_backend.Models.Attribute;
 
 namespace svelte_rpg_backend.Context;
@@ -24,49 +21,51 @@ public class RpgContext: DbContext
     }
 
     //Attribute
-    public DbSet<Attribute> AttributeSet { get; set; }
+    public DbSet<Attribute> Attribute { get; set; }
     public DbSet<AttributeStatsRatio> AttributeStatRatio { get; set; }
     public DbSet<ItemAttribute> ItemAttributeSet { get; set; }
-    public DbSet<ActorAttribute> ActorAttributeSet { get; set; }
-    public DbSet<PerkAttribute> PerkAttributeSet { get; set; }
+    public DbSet<ActorAttribute> ActorAttribute { get; set; }
+    public DbSet<MonsterAttribute> MonsterAttribute { get; set; }
+    public DbSet<PerkAttribute> PerkAttribute { get; set; }
     
     //BackPack
     public DbSet<ItemSlot> ItemSlotSet { get; set; }
     
     //Item
-    public DbSet<EquipmentSlot> EquipmentSlotSet { get; set; }
-    public DbSet<HeroEquipment> HeroEquipmentSet { get; set; }
-    public DbSet<Item> ItemSet { get; set; }
-    public DbSet<ItemCatalog> ItemCatalogSet { get; set; }
-    public DbSet<ItemType> ItemTypeSet { get; set; }
-    public DbSet<Rarity> RaritySet { get; set; }
+    public DbSet<EquipmentSlot> EquipmentSlot { get; set; }
+    public DbSet<HeroEquipment> HeroEquipment { get; set; }
+    public DbSet<Item> Item { get; set; }
+    public DbSet<ItemCatalog> ItemCatalog { get; set; }
+    public DbSet<ItemType> ItemType { get; set; }
+    public DbSet<Rarity> Rarity { get; set; }
     
     //Loot
-    public DbSet<ItemLoot> ItemLootSet { get; set; }
-    public DbSet<Loot> LootSet { get; set; }
-    public DbSet<MonsterLoot> MonsterLootSet { get; set; }
+    public DbSet<ItemLoot> ItemLoot { get; set; }
+    public DbSet<Loot> Loot { get; set; }
+    public DbSet<MonsterLoot> MonsterLoot { get; set; }
     
     //Stat
-    public DbSet<ItemStat> ItemStatSet { get; set; }
-    public DbSet<ActorStat> ActorStatSet { get; set; }
-    public DbSet<PerkStat> PerkStatSet { get; set; }
-    public DbSet<Stat> StatSet { get; set; }
+    public DbSet<ItemStat> ItemStat { get; set; }
+    public DbSet<ActorStat> ActorStat { get; set; }
+    public DbSet<MonsterStat> MonsterStat { get; set; }
+    public DbSet<PerkStat> PerkStat { get; set; }
+    public DbSet<Stat> Stat { get; set; }
     
     //GameSystem
-    public DbSet<ActionText> ActionTextSet { get; set; }
+    public DbSet<ActionText> ActionText { get; set; }
     public DbSet<Actor> Actor { get; set; }
-    public DbSet<BattleState> BattleStateSet { get; set; }
-    public DbSet<Hero> HeroSet { get; set; }
-    public DbSet<Perk> PerkSet { get; set; }
-    public DbSet<Skill> SkillSet { get; set; }
-    public DbSet<SkillType> SkillTypeSet { get; set; }
+    public DbSet<BattleState> BattleState { get; set; }
+    public DbSet<Hero> Hero { get; set; }
+    public DbSet<Perk> Perk { get; set; }
+    public DbSet<Skill> Skill { get; set; }
+    public DbSet<SkillType> SkillType { get; set; }
     
     //Monster
-    public DbSet<Monster> MonsterSet { get; set; }
-    public DbSet<MonsterCatalog> MonsterCatalogSet { get; set; }
+    public DbSet<Monster> Monster { get; set; }
+    public DbSet<MonsterCatalog> MonsterCatalog { get; set; }
     
     //System
-    public DbSet<Config> ConfigSet { get; set; }
-    public DbSet<User> UserSet { get; set; }
-    public DbSet<UserType> UserTypeSet { get; set; }
+    public DbSet<Config> Config { get; set; }
+    public DbSet<UserType> UserType { get; set; }
+    public DbSet<UserUserType> UserUserType { get; set; }
 }

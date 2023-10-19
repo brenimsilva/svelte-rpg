@@ -21,6 +21,7 @@ builder.Services.AddTransient<HeroService, HeroService>();
 builder.Services.AddTransient<SystemService, SystemService>();
 builder.Services.AddTransient<MonsterService, MonsterService>();
 builder.Services.AddTransient<GameLogicService, GameLogicService>();
+builder.Services.AddTransient<AuthService, AuthService>();
 
 // APP
 var app = builder.Build();
