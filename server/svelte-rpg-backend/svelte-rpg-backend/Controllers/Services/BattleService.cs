@@ -5,6 +5,4 @@ public class BattleService {
     public BattleService(RpgContext ctx) {
         this._context = ctx;
     }
-    
 }
-

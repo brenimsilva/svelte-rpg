@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using svelte_rpg_backend.Models.Enums;
+using svelte_rpg_backend.Models.Interfaces;
 
 namespace svelte_rpg_backend.Models;
 
-public class ItemCatalog
+public class ItemCatalog : IMensurable
 {
    [Key, DatabaseGenerated(DatabaseGeneratedOption.None)] public ItemEnum ItemCatalogId { get; set; }
    [Required, MaxLength(32)]public string Name { get; set; }

@@ -16,6 +16,7 @@ npm run dev -- --open
     - [Skills](#skills)
     - [Stats](#stats)
     - [Attributes](#attributes)
+    - [Ratio](#ratio)
     - [Perks](#perks-arvore-de-passivas)
     - [Ascension](#ascension)
 - [Monster](#monster)
@@ -47,6 +48,17 @@ npm run dev -- --open
 - Crit Chance **(CRTC)**
 - Crit Damage **(CRTD)**
 
+### Ratio
+- **MAX_HP** = (VIT * 5) + (STR * 1.5)
+
+- **ATK** = STR * 2
+
+- **DEF** = (DEX * 0.5) + (VIT * 1) 
+
+- **CRTD** = DEX * 1
+
+- **EVS** = AGI * 1
+
 ### Perks (Arvore de passivas)
 - ^ ATK (%)
 - ^ DEF (%)
@@ -71,13 +83,4 @@ npm run dev -- --open
 
 ## Mechanics
 ### Battle Mechanics
-- Damage Calc = P_ATK - (M_DEF * P_ATK) / 100
-
-
-```
-INSERT INTO `svelte-rpg`.MonsterCatalog
-values
-(1, 'Rat', 1, NOW(), NOW()),
-(2, 'Goblin', 2, NOW(), NOW())
-
-```
+- **Damage Calc** = P_ATK - (M_DEF * P_ATK) / 100
