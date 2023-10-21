@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
 using svelte_rpg_backend.Context;
 using svelte_rpg_backend.Models;
@@ -32,66 +32,9 @@ public class HeroService : IHeroService
             .Include(e => e.Attributes)
             .ThenInclude(e => e.Attribute)
             .FirstOrDefaultAsync(e => e.ActorId == heroId);
-        IEnumerable<ItemSlot> itemSlotList = _context.ItemSlotSet.Where(e => e.HeroId == hero.ActorId).Include(e => e.Item);
-        List<StatResponseDTO> statList = new();
-        List<AttributeResponseDTO> attributeList = new();
-        
-        hero.Stats.ToList().ForEach(x => statList.Add(new StatResponseDTO(x.Stat.ShortName, x.Stat.StatName, x.Stat.Description, x.Value)));
-        hero.Attributes.ToList().ForEach(x => attributeList.Add(new AttributeResponseDTO(x.Value, x.Attribute.ShortName, x.Attribute.AttributeName, x.Attribute.Description)));
-        Dictionary<string, AttributeResponseDTO> attrDictionary = DataUtilities.ConvertToDictionary(attributeList, "ShortName");
-        Dictionary<string, StatResponseDTO> statDictionary = DataUtilities.ConvertToDictionary(statList, "ShortName");
-        List<ItemSlotResponseDTO> listItemSlotResponse = new();
-        foreach (var item in hero.ItemSlots)
-        {
-            if (item.Item != null)
-            {
-                ItemResponseDTO itemResponseDto = new()
-                {
-                    Description = item.Item.ItemCatalog.Description,
-                    ItemLevel = item.Item.ItemLevel,
-                    ItemName = item.Item.ItemCatalog.Name,
-                    Rarity = new RarityResponseDTO()
-                    {
-                        Description = item.Item.ItemCatalog.Rarity.Description,
-                        Name = item.Item.ItemCatalog.Rarity.Name,
-                        Color = item.Item.ItemCatalog.Rarity.Color
-                    },
-                    ActionTextResponse = new ActionTextResponseDTO()
-                    {
-                        ActionName = item.Item.ItemCatalog.Name
-                    },
-                    ItemTypeResponse = new ItemTypeResponseDTO()
-                    {
-                        Name = item.Item.ItemCatalog.ItemType.Name,
-                        Description = item.Item.ItemCatalog.ItemType.Description
-                    },
-                    ItemAttributes = new(), //TODO
-                    ItemStats = new() // TODO
-                };
-                ItemSlotResponseDTO itemSlotResponseDto = new()
-                {
-                    Item = itemResponseDto
-                };
-                listItemSlotResponse.Add(itemSlotResponseDto);
-            }
-            else
-            {
-                listItemSlotResponse.Add(new ItemSlotResponseDTO());
-            }
-        }
-        HeroResponseDto heroResponse = new HeroResponseDto()
-        {
-            Level = hero.Level,
-            Exp = hero.Exp,
-            Name = hero.Name,
-            Tier = hero.Tier,
-            Attributes =  attrDictionary,
-            ItemSlots = listItemSlotResponse, 
-            PerkPoints = hero.PerkPoints,
-            Stats = statDictionary,
-            StatPoints = hero.StatPoints
-        };
 
+        IEnumerable<ItemSlot> itemSlotList = _context.ItemSlotSet.Where(e => e.HeroId == hero.ActorId).Include(e => e.Item);
+        HeroResponseDto heroResponse = MapUtilities.ToHeroResponseDTO(hero);
         return heroResponse;
     }
 

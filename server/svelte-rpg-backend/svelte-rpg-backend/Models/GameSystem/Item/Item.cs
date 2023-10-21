@@ -4,7 +4,7 @@ using svelte_rpg_backend.Models.Enums;
 
 namespace svelte_rpg_backend.Models;
 
-public class Item
+public class Item 
 {
     [Key] public int ItemId { get; set; }
     [ForeignKey("ItemCatalog")] public ItemEnum ItemCatalogId { get; set; }

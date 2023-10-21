@@ -2,7 +2,9 @@
 using svelte_rpg_backend.Context;
 using svelte_rpg_backend.Models;
 using svelte_rpg_backend.Models.DTO;
+using svelte_rpg_backend.Models.DTO.Response;
 using svelte_rpg_backend.Models.Enums;
+using svelte_rpg_backend.Util;
 
 namespace svelte_rpg_backend.Services;
 
@@ -27,7 +29,9 @@ public class MonsterService : IMonsterService
         //Faz a busca no banco do monstro pelo id do enum
         MonsterCatalog catalogedMonster = await _context.MonsterCatalog
             .Include(e => e.Attributes)
+            .ThenInclude(e => e.Attribute)
             .Include(e => e.Stats)
+            .ThenInclude(e => e.Stat)
             .Include(e => e.MonsterLoots)
             .FirstOrDefaultAsync(x => x.MonsterCatalogId == monsterId);
         Monster monster = new Monster()
@@ -39,19 +43,24 @@ public class MonsterService : IMonsterService
             MonsterCatalogId = catalogedMonster.MonsterCatalogId,
             Tier = tier,
             Level = catalogedMonster.Level,
-            
         };
         await _context.Monster.AddAsync(monster);
         await _context.SaveChangesAsync();
-        await _systemService.GenerateStats(monster.ActorId, 1,1,1,5);
-        await _systemService.GenerateAttributes(monster.ActorId, 0, 0, 0, 0, 0, 0, 0);
+        var stats = await _systemService.GenerateStats(monster.ActorId, 1,1,1,5);
+        var attributes = await _systemService.GenerateAttributes(monster.ActorId, 0, 0, 0, 0, 0, 0, 0);
         await _gameLogicService.UpdateActorAttributes(monster);
+
         //Faz o calculo do dropchance dos loots pelo tier
         return monster;
     }
 
-    public async Task<Monster> GetById(int id)
+    public async Task<MonsterResponseDTO> GetById(int id)
     {
-        return await _context.Monster.FindAsync(id);
+        var m = await _context.Monster.Include(e => e.Attributes)
+            .ThenInclude(e => e.Attribute)
+            .Include(e => e.Stats)
+            .ThenInclude(e => e.Stat).FirstOrDefaultAsync(e => e.ActorId == id);
+        var mDTO = MapUtilities.ToMonsterResponseDTO(m);
+        return mDTO;
     }
 }
