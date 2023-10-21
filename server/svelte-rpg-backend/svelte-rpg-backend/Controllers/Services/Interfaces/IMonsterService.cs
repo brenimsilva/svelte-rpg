@@ -1,5 +1,6 @@
 ﻿using svelte_rpg_backend.Models;
 using svelte_rpg_backend.Models.DTO;
+using svelte_rpg_backend.Models.DTO.Response;
 using svelte_rpg_backend.Models.Enums;
 
 namespace svelte_rpg_backend.Services;

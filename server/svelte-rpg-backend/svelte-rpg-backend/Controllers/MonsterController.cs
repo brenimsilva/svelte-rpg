@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using svelte_rpg_backend.Models;
+using svelte_rpg_backend.Models.DTO.Response;
 using svelte_rpg_backend.Models.Enums;
 using svelte_rpg_backend.Services;
 
@@ -17,13 +18,13 @@ public class MonsterController : ControllerBase
     }
     
     [HttpPost]
-    public async Task<ActionResult<Monster>> MonsterSpawn([FromForm] int tier, [FromForm] MonsterEnum catalogedMonster)
+    public async Task<IActionResult> MonsterSpawn([FromForm] int tier, [FromForm] MonsterEnum catalogedMonster)
     {
         try
         {
             Monster m = await _monsterService.MonsterSpawn(catalogedMonster, tier);
-            return StatusCode(201, m);
-            // return CreatedAtAction(nameof(GetById), new {id = m.ActorId}, m);
+            
+            return CreatedAtAction(nameof(GetById), new {id = m.ActorId}, m);
         }
         catch (Exception ex)
         {
@@ -36,7 +37,7 @@ public class MonsterController : ControllerBase
     {
         try
         {
-            Monster m = await _monsterService.GetById(id);
+            MonsterResponseDTO m = await _monsterService.GetById(id);
             return Ok(m);
         }
         catch (Exception ex)
