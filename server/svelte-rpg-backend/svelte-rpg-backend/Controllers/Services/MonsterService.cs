@@ -45,10 +45,12 @@ public class MonsterService : IMonsterService
             Level = catalogedMonster.Level,
         };
         await _context.Monster.AddAsync(monster);
-        await _context.SaveChangesAsync();
-        var stats = await _systemService.GenerateStats(monster.ActorId, 1,1,1,5);
-        var attributes = await _systemService.GenerateAttributes(monster.ActorId, 0, 0, 0, 0, 0, 0, 0);
+        var stats = await _systemService.GenerateStats(monster, 1,1,1,5);
+        var attributes = await _systemService.GenerateAttributes(monster, 0, 0, 0, 0, 0, 0, 0);
+        monster.Attributes = attributes;
+        monster.Stats = stats;
         await _gameLogicService.UpdateActorAttributes(monster);
+        await _context.SaveChangesAsync();
 
         //Faz o calculo do dropchance dos loots pelo tier
         return monster;

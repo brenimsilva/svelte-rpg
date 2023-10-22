@@ -16,6 +16,8 @@ public class Hero : Actor
     [Required]public int Exp { get; set; }
     [Required]public int StatPoints { get; set; }
     [Required]public int PerkPoints { get; set; }
+    [ForeignKey(nameof(Models.Monster))] public int MonsterId { get; set; }
+    public virtual Monster Monster { get; set; }
 
     public Hero()
     {

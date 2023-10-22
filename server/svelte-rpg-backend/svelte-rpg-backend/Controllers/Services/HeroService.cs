@@ -4,6 +4,7 @@ using svelte_rpg_backend.Context;
 using svelte_rpg_backend.Models;
 using svelte_rpg_backend.Models.DTO;
 using svelte_rpg_backend.Models.DTO.Response;
+using svelte_rpg_backend.Models.Enums;
 using svelte_rpg_backend.Util;
 
 namespace svelte_rpg_backend.Services;
@@ -13,11 +14,13 @@ public class HeroService : IHeroService
     private RpgContext _context;
     private SystemService _systemService;
     private GameLogicService _gameLogicService;
-    public HeroService(RpgContext ctx, SystemService systemService, GameLogicService glService)
+    private MonsterService _monsterService;
+    public HeroService(RpgContext ctx, SystemService systemService, GameLogicService glService, MonsterService monsterService)
     {
         this._context = ctx;
         this._systemService = systemService;
         this._gameLogicService = glService;
+        this._monsterService = monsterService;
     }
 
     public async Task<HeroResponseDto> GetById(int heroId)
@@ -41,16 +44,23 @@ public class HeroService : IHeroService
 
     public async Task<Hero> Create(HeroDTO heroDto)
     {
+        var m = await this._monsterService.MonsterSpawn(MonsterEnum.Rat, 1);
         Hero hero = new Hero(heroDto);
         await _context.Hero.AddAsync(hero);
-        await _context.SaveChangesAsync();
+        List<ItemSlot> itemSlots = new List<ItemSlot>();
         for (int i = 0; i < 20; i++)
         {
-            ItemSlot itemSlot = new ItemSlot(hero.ActorId, _context);
+            ItemSlot itemSlot = new ItemSlot(hero);
+            itemSlots.Add(itemSlot);
         }
-        await _systemService.GenerateStats(hero.ActorId, 5,5,5,10);
-        await _systemService.GenerateAttributes(hero.ActorId, 0,0,0,0,0,0,0);
+        hero.ItemSlots = itemSlots;
+        await _context.ItemSlotSet.AddRangeAsync(itemSlots);
+        List<ActorStat> stats = await _systemService.GenerateStats(hero, 5,5,5,10);
+        List<ActorAttribute> attributes =  await _systemService.GenerateAttributes(hero, 0,0,0,0,0,0,0);
+        hero.Stats = stats;
+        hero.Attributes = attributes;
         await _gameLogicService.UpdateActorAttributes(hero);
+        hero.MonsterId = m.ActorId;
         await _context.SaveChangesAsync();
 
         return hero;

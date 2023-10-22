@@ -9,6 +9,6 @@ public class ItemAttribute
    [Key] public int ItemAttributeId { get; set; }
    [ForeignKey("Attribute")] public AttributeEnum AttributeId { get; set; }
    public virtual Attribute Attribute { get; set; }
-   [ForeignKey("Item")] public ItemEnum ItemId { get; set; }
+   [ForeignKey(nameof(Item))] public int ItemId { get; set; }
    [Required]public double Value { get; set; }
 }

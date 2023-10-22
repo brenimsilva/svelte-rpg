@@ -54,7 +54,6 @@ public class RpgContext: DbContext
     //GameSystem
     public DbSet<ActionText> ActionText { get; set; }
     public DbSet<Actor> Actor { get; set; }
-    public DbSet<BattleState> BattleState { get; set; }
     public DbSet<Hero> Hero { get; set; }
     public DbSet<Perk> Perk { get; set; }
     public DbSet<Skill> Skill { get; set; }
