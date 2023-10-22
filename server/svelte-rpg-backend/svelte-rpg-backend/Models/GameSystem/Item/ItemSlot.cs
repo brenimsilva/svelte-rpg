@@ -7,14 +7,15 @@ namespace svelte_rpg_backend.Models;
 public class ItemSlot
 {
     [Key] public int ItemSlotId { get; set; }
-    [ForeignKey("Item")] public int? ItemId { get; set; }
-    public virtual Item? Item { get; set; }
-    [ForeignKey("Hero")] public int HeroId { get; set; }
+    [ForeignKey(nameof(Models.Item))] public int? ItemId { get; set; }
+    public virtual Item? Item { get; set; } = null;
+    [ForeignKey(nameof(Hero))] public int HeroId { get; set; }
 
-
-    public ItemSlot(int heroId, RpgContext _context)
+    public ItemSlot() {}
+    public ItemSlot(Hero hero)
     {
-        this.HeroId = heroId;
-        _context.ItemSlotSet.AddAsync(this);
+        this.ItemSlotId = 0;
+        this.ItemId = null;
+        this.HeroId = hero.ActorId;
     }
 }

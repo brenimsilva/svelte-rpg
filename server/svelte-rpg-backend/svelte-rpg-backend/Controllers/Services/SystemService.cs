@@ -79,13 +79,13 @@ public class SystemService : ISystemService
     }
 
 
-    public async Task<List<ActorStat>> GenerateStats(int actorId, int str, int dex, int agi, int vit)
+    public async Task<List<ActorStat>> GenerateStats(Actor actor, int str, int dex, int agi, int vit)
     {
         List<ActorStat> statList = new List<ActorStat>();
-        ActorStat STR = new ActorStat(StatEnum.Strength, actorId, str);
-        ActorStat DEX = new ActorStat(StatEnum.Dexterity, actorId, dex);
-        ActorStat AGI = new ActorStat(StatEnum.Agility, actorId, agi);
-        ActorStat VIT = new ActorStat(StatEnum.Vitality, actorId, vit);
+        ActorStat STR = new ActorStat(StatEnum.Strength, actor.ActorId, str);
+        ActorStat DEX = new ActorStat(StatEnum.Dexterity, actor.ActorId, dex);
+        ActorStat AGI = new ActorStat(StatEnum.Agility, actor.ActorId, agi);
+        ActorStat VIT = new ActorStat(StatEnum.Vitality, actor.ActorId, vit);
         statList.AddRange(new []
         {
             STR,DEX,AGI,VIT
@@ -94,16 +94,16 @@ public class SystemService : ISystemService
         return statList;
     }
 
-    public async Task<List<ActorAttribute>> GenerateAttributes(int actorId, double mhp, double hp, double atk, double def, double evs, double crtc, double crtd)
+    public async Task<List<ActorAttribute>> GenerateAttributes(Actor actor, double mhp, double hp, double atk, double def, double evs, double crtc, double crtd)
     {
         List<ActorAttribute> actorAttributes = new List<ActorAttribute>();
-        ActorAttribute MHP = new ActorAttribute(AttributeEnum.MaxHealthPoints, actorId, mhp);
-        ActorAttribute HP = new ActorAttribute(AttributeEnum.HealthPoints, actorId, hp);
-        ActorAttribute ATK = new ActorAttribute(AttributeEnum.Attack, actorId, atk);
-        ActorAttribute DEF = new ActorAttribute(AttributeEnum.Defense, actorId, def);
-        ActorAttribute EVS = new ActorAttribute(AttributeEnum.Evasion, actorId, evs);
-        ActorAttribute CRTC = new ActorAttribute(AttributeEnum.CritChance, actorId, crtc);
-        ActorAttribute CRTD = new ActorAttribute(AttributeEnum.CritDamage, actorId, crtd);
+        ActorAttribute MHP = new ActorAttribute(AttributeEnum.MaxHealthPoints, actor.ActorId, mhp);
+        ActorAttribute HP = new ActorAttribute(AttributeEnum.HealthPoints, actor.ActorId, hp);
+        ActorAttribute ATK = new ActorAttribute(AttributeEnum.Attack, actor.ActorId, atk);
+        ActorAttribute DEF = new ActorAttribute(AttributeEnum.Defense, actor.ActorId, def);
+        ActorAttribute EVS = new ActorAttribute(AttributeEnum.Evasion, actor.ActorId, evs);
+        ActorAttribute CRTC = new ActorAttribute(AttributeEnum.CritChance, actor.ActorId, crtc);
+        ActorAttribute CRTD = new ActorAttribute(AttributeEnum.CritDamage, actor.ActorId, crtd);
         actorAttributes.AddRange(new []
         {
             MHP,HP, ATK, DEF, CRTD, CRTC, EVS

@@ -7,7 +7,7 @@ namespace svelte_rpg_backend.Models;
 public class Item 
 {
     [Key] public int ItemId { get; set; }
-    [ForeignKey("ItemCatalog")] public ItemEnum ItemCatalogId { get; set; }
+    [ForeignKey(nameof(ItemCatalog))] public ItemEnum ItemCatalogId { get; set; }
     public virtual IEnumerable<ItemAttribute> ItemAttributes { get; set; }
     public virtual IEnumerable<ItemStat> ItemStats { get; set; }
     public virtual ItemCatalog ItemCatalog { get; set; }

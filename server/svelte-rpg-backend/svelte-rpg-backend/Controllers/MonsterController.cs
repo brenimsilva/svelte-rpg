@@ -22,6 +22,10 @@ public class MonsterController : ControllerBase
     {
         try
         {
+            // if(Request.Headers.TryGetValue("rpg_token", out var token))
+            // {
+            //     
+            // }
             Monster m = await _monsterService.MonsterSpawn(catalogedMonster, tier);
             
             return CreatedAtAction(nameof(GetById), new {id = m.ActorId}, m);

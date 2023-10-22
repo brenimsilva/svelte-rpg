@@ -42,7 +42,7 @@ public class HeroController : ControllerBase
         }
         catch(Exception e)
         {
-            return BadRequest();
+            return BadRequest(e.Message);
         }
     }
 

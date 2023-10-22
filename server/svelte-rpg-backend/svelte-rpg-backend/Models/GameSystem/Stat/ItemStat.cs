@@ -8,8 +8,8 @@ public class ItemStat
 {
     
    [Key] public int ItemStatId { get; set; }
-   [ForeignKey("Stat")] public StatEnum StatId { get; set; }
+   [ForeignKey(nameof(Stat))] public StatEnum StatId { get; set; }
    public virtual Stat Stat { get; set; }
-   [ForeignKey("Item")] public int ItemId { get; set; }
+   [ForeignKey(nameof(Item))] public int ItemId { get; set; }
    [Required]public int Value { get; set; }
 }

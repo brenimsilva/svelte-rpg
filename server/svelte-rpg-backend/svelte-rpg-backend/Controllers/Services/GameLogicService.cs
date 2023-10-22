@@ -42,7 +42,6 @@ public class GameLogicService : IGameLogicService
     {
         ICollection<ActorAttribute> actorAttributes = await _CalcAttributes(actor);
         await _context.ActorAttribute.AddRangeAsync(actorAttributes);
-        await _context.SaveChangesAsync();
         return actorAttributes;
     }
 
